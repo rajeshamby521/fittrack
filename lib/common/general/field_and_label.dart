@@ -1,0 +1,167 @@
+import 'dart:async';
+
+import 'package:fittrack/common/general_widget.dart';
+import 'package:fittrack/ui_helper/colors.dart';
+import 'package:fittrack/ui_helper/text_style.dart';
+import 'package:flutter/material.dart';
+
+class FieldAndLabel extends StatefulWidget {
+  final Color labelTextColor;
+  final TextStyle labelTextStyle;
+  final Color labelBackgroundColor;
+  final String labelValue;
+  final Widget icon;
+  final Widget rightIcon;
+  bool isPassword;
+  final bool autoFocus;
+  final bool enabled;
+  final String hint;
+  final FocusNode focusNode;
+  final Function onSubmitted;
+  final Function onEditingComplete;
+  final Function onTap;
+  final Function onChanged;
+  final TextInputType inputType;
+  final String validationMessage;
+
+  FieldAndLabel({
+    this.labelBackgroundColor,
+    this.labelTextColor,
+    this.labelTextStyle,
+    this.labelValue,
+    this.onTap,
+    this.icon,
+    this.onChanged,
+    this.autoFocus = false,
+    this.enabled = false,
+    this.focusNode,
+    this.inputType,
+    this.isPassword = false,
+    this.onEditingComplete,
+    this.onSubmitted,
+    this.hint,
+    this.rightIcon,
+    this.validationMessage,
+  });
+
+  @override
+  _FieldAndLabelState createState() => _FieldAndLabelState();
+}
+
+class _FieldAndLabelState extends State<FieldAndLabel> {
+  var currentFieldValue;
+  TextEditingController _textEditController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        buildLabel(context),
+        buildTextField(context),
+        buildValidationMessage(context),
+      ],
+    );
+  }
+
+  onSubmitted(value) {
+    if (widget.onSubmitted != null) {
+      widget.onSubmitted(value, this);
+    }
+  }
+
+  onEditingComplete() {
+    if (widget.onEditingComplete != null) {
+      widget.onEditingComplete(this.currentFieldValue, this);
+    }
+  }
+
+  onTapInternal() {
+    if (widget.onTap != null) {
+      widget.onTap(this._textEditController);
+    }
+  }
+
+  Widget buildLabel(BuildContext context) {
+    if (widget.labelValue != null && widget.labelValue.isNotEmpty) {
+      return Row(children: <Widget>[
+        Text(
+          widget.labelValue,
+          style: this.widget.labelTextStyle ??
+              defaultLabelStyle(widget.labelTextColor, widget.labelBackgroundColor),
+          textAlign: TextAlign.start,
+        ),
+      ]);
+    } else {
+      return Container();
+    }
+  }
+
+  Widget buildTextField(BuildContext context) {
+    return Container(
+      height: 50,
+      child: TextField(
+        keyboardType: widget.inputType,
+        obscureText: widget.isPassword ? visible : widget.isPassword,
+        style: TextStyle(color: theme),
+        focusNode: widget.focusNode,
+        autofocus: widget.autoFocus,
+        enabled: widget.enabled ?? true,
+        controller: _textEditController,
+        onChanged: widget.onChanged,
+        onSubmitted: (val) {
+          FocusScope.of(context).requestFocus(new FocusNode());
+          // onSubmitted(val);
+        },
+        maxLines: 1,
+        onTap: () => onTapInternal(),
+        decoration: InputDecoration(
+          prefixIcon: widget.icon,
+          suffixIcon: passVisibilityIcon(),
+          counterText: "",
+          hintText: widget.hint,
+          filled: true,
+          border: OutlineInputBorder(),
+          fillColor: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  bool visible = true;
+
+  Widget passVisibilityIcon() {
+    return widget.isPassword
+        ? IconButton(
+            icon: Icon(visible ? Icons.visibility : Icons.visibility_off),
+            onPressed: () {
+              setState(() {
+                visible = !visible;
+              });
+            })
+        : widget.rightIcon;
+  }
+
+  Widget buildValidationMessage(BuildContext context) {
+    return buildValidationErrorMessage(context, validationMessage: widget.validationMessage);
+  }
+
+  bool isBlank(String value) {
+    return value == null || value == '';
+  }
+
+  Widget buildValidationErrorMessage(BuildContext context, {String validationMessage}) {
+    if (!isBlank(validationMessage))
+      return Row(
+        children: [
+          Text(
+            validationMessage,
+            style: TextStyle(
+                fontSize: 13, color: widget.validationMessage == "Valid" ? Colors.green : red),
+          ),
+        ],
+      );
+    else {
+      return Container();
+    }
+  }
+}

@@ -1,0 +1,53 @@
+import 'package:fittrack/features/compare/presentation/pages/compare_screen.dart';
+import 'package:fittrack/features/current_bmi/presentation/pages/current_bmi_screen.dart';
+import 'package:fittrack/features/current_bmr/presentation/pages/current_bmr_screen.dart';
+import 'package:fittrack/features/food_directory/presentation/pages/food_directory_home_screen.dart';
+import 'package:fittrack/features/home/presentation/pages/home_screen.dart';
+import 'package:fittrack/features/photo_gallery/presentation/pages/photo_gallery_screen.dart';
+import 'package:fittrack/features/weight_sheet/presentation/pages/weight_sheet_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+Widget DashBoardPage({int pageNo, Bloc bloc}) {
+  switch (pageNo) {
+    case 0:
+      return WeightSheetScreen(bloc: bloc);
+      break;
+    case 1:
+      return CurrentBMIScreen();
+      break;
+    case 2:
+      return CurrentBMRScreen(bloc: bloc);
+      break;
+    case 3:
+      return WeightSheetScreen(bloc: bloc);
+      break;
+    case 4:
+      return FoodDirectory(bloc: bloc);
+      break;
+    case 5:
+      return HomePage(bloc: bloc);
+      break;
+    case 6:
+      return HomePage(bloc: bloc);
+      break;
+    case 7:
+      return PhotoGalleryScreen(bloc: bloc);
+      break;
+    case 8:
+      return HomePage(bloc: bloc);
+      break;
+    case 9:
+      return CompareScreen(bloc: bloc);
+      break;
+    case 10:
+      return HomePage(bloc: bloc);
+      break;
+    case 11:
+      return HomePage(bloc: bloc);
+      break;
+    default:
+      return HomePage(bloc: bloc);
+      break;
+  }
+}

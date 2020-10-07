@@ -1,0 +1,27 @@
+import 'package:fittrack/features/dashboard/domain/usecases/dashboard_usecase.dart';
+import 'package:fittrack/features/dashboard/presentation/bloc/dashboard_event.dart';
+import 'package:fittrack/features/dashboard/presentation/bloc/dashboard_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
+  @override
+  DashboardState get initialState => InitialDashboardState();
+
+  DashboardAnimateUseCase dashboardAnimateUseCase;
+
+  DashboardBloc({this.dashboardAnimateUseCase});
+
+  @override
+  Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
+
+    if (event is AnimatePageEvent) {
+      yield LoadingBeginHomeState();
+      final result = await dashboardAnimateUseCase(DashboardAnimateParams(animate: event.animate));
+      yield LoadingEndHomeState();
+      yield result.fold(
+        (error) => ErrorState(error.message),
+        (success) => AnimatePageState(animate: success),
+      );
+    }
+  }
+}

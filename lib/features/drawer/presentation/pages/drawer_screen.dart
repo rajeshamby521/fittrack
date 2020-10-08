@@ -1,3 +1,4 @@
+import 'package:fittrack/common/general/alert_dialog.dart';
 import 'package:fittrack/common/general_widget.dart';
 import 'package:fittrack/features/drawer/presentation/widget/drawer_widget.dart';
 import 'package:fittrack/features/login/data/datamodel/login_model.dart';
@@ -45,13 +46,20 @@ class CustomDrawer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
-                                child:
-                                    labels(text: "W : ${userData.weight ?? '--'} $kg", size: 10)),
+                              child: labels(
+                                text: "W : ${userData.weight ?? '--'} $kg",
+                                size: 10,
+                              ),
+                            ),
                             Expanded(
-                                child:
-                                    labels(text: "H : ${userData.height ?? '--'} $cm", size: 10)),
+                              child: labels(
+                                text: "H : ${userData.height ?? '--'} $cm",
+                                size: 10,
+                              ),
+                            ),
                           ],
                         ),
+                        onTap: () => noLoginAlertDialog(context),
                       ),
                     ),
                     if (userData.userId != null)

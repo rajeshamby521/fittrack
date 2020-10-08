@@ -22,11 +22,7 @@ class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
   Stream<PhotoGalleryState> mapEventToState(PhotoGalleryEvent event) async* {
     if (event is GetPhotoGalleryDataEvent) {
       yield LoadingBeginHomeState();
-      final result = await photoGalleryDataUseCase(PhotoGalleryDataParams(
-        image: event.image,
-        dateTime: event.dateTime,
-        weight: event.weight,
-      ));
+      final result = await photoGalleryDataUseCase(PhotoGalleryDataParams(offSet: event.offSet));
       yield LoadingEndHomeState();
       yield result.fold(
         (error) => ErrorState(error.message),
@@ -36,9 +32,7 @@ class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
 
     if (event is GetPhotoGalleryPhotoEvent) {
       yield LoadingBeginHomeState();
-      final result = await photoUseCase(PhotoGalleryPhotoParams(
-        image: event.image,
-      ));
+      final result = await photoUseCase(PhotoGalleryPhotoParams(image: event.image));
       yield LoadingEndHomeState();
       yield result.fold(
         (error) => ErrorState(error.message),
@@ -47,9 +41,7 @@ class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
     }
     if (event is GetPhotoGalleryWeightEvent) {
       yield LoadingBeginHomeState();
-      final result = await weightUseCase(PhotoGalleryWeightParams(
-        weight: event.weight,
-      ));
+      final result = await weightUseCase(PhotoGalleryWeightParams(weight: event.weight));
       yield LoadingEndHomeState();
       yield result.fold(
         (error) => ErrorState(error.message),
@@ -58,9 +50,7 @@ class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
     }
     if (event is GetPhotoGalleryDateEvent) {
       yield LoadingBeginHomeState();
-      final result = await dateUseCase(PhotoGalleryDateParams(
-        dateTime: event.dateTime,
-      ));
+      final result = await dateUseCase(PhotoGalleryDateParams(dateTime: event.dateTime));
       yield LoadingEndHomeState();
       yield result.fold(
         (error) => ErrorState(error.message),

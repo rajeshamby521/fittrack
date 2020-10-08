@@ -12,3 +12,7 @@ BaseOptions options = BaseOptions(
 
 const String getJSONLoginURL = "user/login/";
 const String getWeightSheetListURL = "weight/weight_list/";
+const String setWeightSheetDataURL = "weight/save_weight/";
+const String getPhotoGalleryListURL = "photo/user_photo_list/";
+const String getFoodCategoryListURL = "food/category_list/";
+const String getFoodDirectoryListURL = "food/food_directory_list/";

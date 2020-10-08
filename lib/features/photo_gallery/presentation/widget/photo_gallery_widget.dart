@@ -16,7 +16,7 @@ Widget dateLabel({String label}) => labels(text: label, color: theme);
 
 Widget weightLabel({String label}) => labels(text: "$weight_kg $label", color: green800);
 
-Widget listItem({DateTime date, String weight, String image}) => Card(
+Widget listItem({String date, String weight, String image}) => Card(
       color: white,
       elevation: 20,
       shadowColor: green,
@@ -34,7 +34,7 @@ Widget listItem({DateTime date, String weight, String image}) => Card(
             ),
             Padding(
               padding: const EdgeInsets.all(2.0),
-              child: dateLabel(label: dateFormat(dateTime: date, format: "dd MMMM yyyy")),
+              child: dateLabel(label: date),
             ),
             weightLabel(label: weight.toString()),
           ],
@@ -137,8 +137,8 @@ class AddPhotoData extends StatelessWidget {
                 disable: false,
                 onPressed: () {
                   if (img) {
-                    bloc.add(GetPhotoGalleryDataEvent(
-                        dateTime: dateTime, weight: weight ?? 60, image: image));
+                    // bloc.add(GetPhotoGalleryDataEvent(
+                    //     dateTime: dateTime, weight: weight ?? 60, image: image));
                     Navigator.pop(context);
                   }
                 },

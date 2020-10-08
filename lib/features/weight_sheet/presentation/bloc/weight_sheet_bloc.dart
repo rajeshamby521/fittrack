@@ -8,10 +8,12 @@ class WeightSheetBloc extends Bloc<WeightSheetEvent, WeightSheetState> {
   WeightSheetState get initialState => InitialWeightSheetState();
 
   WeightSheetUseCase weightSheetUseCase;
+  SetWeightSheetUseCase setWeightSheetUseCase;
   WeightUseCase weightUseCase;
   DateUseCase dateUseCase;
 
-  WeightSheetBloc({this.weightSheetUseCase, this.weightUseCase, this.dateUseCase});
+  WeightSheetBloc(
+      {this.weightSheetUseCase, this.weightUseCase, this.dateUseCase, this.setWeightSheetUseCase});
 
   @override
   Stream<WeightSheetState> mapEventToState(WeightSheetEvent event) async* {
@@ -22,6 +24,25 @@ class WeightSheetBloc extends Bloc<WeightSheetEvent, WeightSheetState> {
       yield result.fold(
         (error) => ErrorState(error.message),
         (success) => GetWeightSheetState(data: success),
+      );
+    }
+    if (event is GetWeightSheetNextPageEvent) {
+      yield LoadingBeginNextPageState();
+      final result = await weightSheetUseCase(WeightSheetParams(offSet: event.offSet));
+      yield LoadingEndNextPageState();
+      yield result.fold(
+        (error) => ErrorState(error.message),
+        (success) => GetWeightSheetNextPageState(data: success),
+      );
+    }
+    if (event is SetWeightSheetEvent) {
+      yield LoadingBeginHomeState();
+      final result =
+          await setWeightSheetUseCase(SetWeightSheetParams(date: event.date, weight: event.weight));
+      yield LoadingEndHomeState();
+      yield result.fold(
+        (error) => ErrorState(error.message),
+        (success) => SetWeightSheetState(data: success),
       );
     }
     if (event is GetWeightEvent) {

@@ -17,9 +17,9 @@ Widget skipButton(BuildContext context) => Padding(
           child: labels(text: skip, size: 20, color: white),
         ),
         onTap: () {
-          // Navigator.of(context).pushReplacement(
-          //   MaterialPageRoute(builder: (context) => MyApp()),
-          // );
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => MyApp()),
+          );
         },
       ),
     );

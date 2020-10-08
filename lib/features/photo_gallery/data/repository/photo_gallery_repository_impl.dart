@@ -30,16 +30,8 @@ class PhotoGalleryRepositoryImpl extends PhotoGalleryRepository {
   }
 
   @override
-  Future<Either<Failure, PhotoGalleryDataModel>> getPhotoGalleryDate({
-    double weight,
-    File image,
-    DateTime dateTime,
-  }) async {
-    final result = await photoGalleryDataSource.getPhotoGalleryData(
-      weight: weight,
-      image: image,
-      dateTime: dateTime,
-    );
+  Future<Either<Failure, PhotoGalleryModel>> getPhotoGalleryDate({int offSet}) async {
+    final result = await photoGalleryDataSource.getPhotoGalleryData(offSet: offSet);
     return Right(result);
   }
 }

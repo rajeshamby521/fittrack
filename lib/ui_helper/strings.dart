@@ -86,6 +86,7 @@ const String txt_password = "Password";
 const String enterEmail = "Enter Your Email";
 const String enterPassword = "Enter Your Password";
 const String success = "Success";
+const String dataNotFound = "Data Not Found";
 
 // Validation Message
 const String valid = "Valid";

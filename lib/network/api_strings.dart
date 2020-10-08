@@ -8,3 +8,6 @@ const String user_id = "user_id";
 const String userData = "userData";
 const String access_token = "access_token";
 const String offset = "offset";
+const String param_weight = "weight";
+const String param_date = "date";
+const String category_id = "category_id";

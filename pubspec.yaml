@@ -40,6 +40,7 @@ dependencies:
   fluttertoast: 7.1.1
   shared_preferences: 0.5.12
   device_info: 0.4.2+8
+  share: 0.6.5+2
 
 dev_dependencies:
   flutter_test:

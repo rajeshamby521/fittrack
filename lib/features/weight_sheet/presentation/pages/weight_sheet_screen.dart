@@ -2,6 +2,7 @@ import 'package:fittrack/common/appbar_widget.dart';
 import 'package:fittrack/common/general/circular_progress_indicator.dart';
 import 'package:fittrack/common/general_widget.dart';
 import 'package:fittrack/di/dependency_injection.dart';
+import 'package:fittrack/features/weight_sheet/data/datamodel/set_weight_data_model.dart';
 import 'package:fittrack/features/weight_sheet/data/datamodel/weight_sheet_model.dart';
 import 'package:fittrack/features/weight_sheet/presentation/bloc/bloc.dart';
 import 'package:fittrack/features/weight_sheet/presentation/widget/weight_sheet_widget.dart';
@@ -10,6 +11,7 @@ import 'package:fittrack/ui_helper/images.dart';
 import 'package:fittrack/ui_helper/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class WeightSheetScreen extends StatefulWidget {
   Bloc bloc;
@@ -23,6 +25,7 @@ class WeightSheetScreen extends StatefulWidget {
 class _WeightSheetScreenState extends State<WeightSheetScreen> {
   final bloc = getIt<WeightSheetBloc>();
   WeightSheetModel weightSheetDataList;
+  SetWeightDataModel setWeightDataModel;
   bool isLoading = true;
   bool isPageLoading = false;
   int offSet = 0;
@@ -43,7 +46,17 @@ class _WeightSheetScreenState extends State<WeightSheetScreen> {
           isLoading = true;
         else if (state is LoadingEndHomeState)
           isLoading = false;
-        else if (state is GetWeightSheetState) {
+        else if (state is LoadingBeginNextPageState)
+          isPageLoading = true;
+        else if (state is LoadingEndNextPageState)
+          isPageLoading = false;
+        else if (state is SetWeightSheetState) {
+          setWeightDataModel = state.data;
+          Fluttertoast.showToast(msg: setWeightDataModel.msg);
+        } else if (state is GetWeightSheetState) {
+          weightSheetDataList = state.data;
+          weightList.addAll(weightSheetDataList.data);
+        } else if (state is GetWeightSheetNextPageState) {
           weightSheetDataList = state.data;
           weightList.addAll(weightSheetDataList.data);
         }
@@ -78,6 +91,12 @@ class _WeightSheetScreenState extends State<WeightSheetScreen> {
                 backgroundColor: theme,
                 dialogContent: AddWeightData(bloc: bloc),
               ),
+              bottomSheet: isPageLoading
+                  ? Container(
+                      height: 40,
+                      child: circularProgressIndicator,
+                    )
+                  : null,
             ),
           );
         },
@@ -91,12 +110,11 @@ class _WeightSheetScreenState extends State<WeightSheetScreen> {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
         if (!isPageLoading) {
           isPageLoading = !isPageLoading;
-          // Perform event when user reach at the end of list (e.g. do Api call)
         }
         print("***--- $isPageLoading");
         offSet = weightSheetDataList.nextOffset;
         if (offSet != -1) {
-          bloc.add(GetWeightSheetEvent(offSet: offSet));
+          bloc.add(GetWeightSheetNextPageEvent(offSet: offSet));
         }
       }
     });

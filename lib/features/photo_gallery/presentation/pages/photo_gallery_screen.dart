@@ -22,14 +22,16 @@ class PhotoGalleryScreen extends StatefulWidget {
 
 class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
   final bloc = getIt<PhotoGalleryBloc>();
-  PhotoGalleryDataModel list = PhotoGalleryDataModel();
+  PhotoGalleryModel list = PhotoGalleryModel();
   double weight;
   DateTime dateTime;
   bool isLoading = true;
+  int offSet = 0;
+  List<Datum> photoList = List<Datum>();
 
   @override
   void initState() {
-    bloc.add(GetPhotoGalleryDataEvent(weight: 10, dateTime: DateTime.now()));
+    bloc.add(GetPhotoGalleryDataEvent(offSet: offSet));
     super.initState();
   }
 
@@ -38,7 +40,10 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
     return BlocListener(
       bloc: bloc,
       listener: (BuildContext context, state) {
-        if (state is GetPhotoGalleryDataState) list = state.data;
+        if (state is GetPhotoGalleryDataState) {
+          list = state.data;
+          photoList = state.data.data;
+        }
         if (state is LoadingBeginHomeState) isLoading = true;
         if (state is LoadingEndHomeState) isLoading = false;
         if (state is GetPhotoGalleryWeightState) weight = state.weight;
@@ -64,23 +69,39 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
                   image: bg_home_screen,
                   colorFilter: ColorFilter.mode(black.withOpacity(0.8), BlendMode.dstATop),
                 ),
-                child: isLoading
-                    ? circularProgressIndicator
-                    : GridView.count(
-                        crossAxisCount: 2,
-                        children: List.generate(
-                          list.photoGalleryList.length,
-                          (index) => listItem(
-                            date: list.photoGalleryList[index].dateTime,
-                            weight: list.photoGalleryList[index].weight,
-                            image: list.photoGalleryList[index].image,
-                          ),
-                        ),
-                      ),
+                child: isLoading ? circularProgressIndicator : _createListView(),
               ),
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _createListView() {
+    ScrollController _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
+        // if (!isPageLoading) {
+        //   isPageLoading = !isPageLoading;
+        //   // Perform event when user reach at the end of list (e.g. do Api call)
+        // }
+        // print("***--- $isPageLoading");
+        offSet = list.nextOffset;
+        if (offSet != -1) {
+          bloc.add(GetPhotoGalleryDataEvent(offSet: offSet));
+        }
+      }
+    });
+    return GridView.count(
+      crossAxisCount: 2,
+      children: List.generate(
+        photoList.length,
+        (index) => listItem(
+          date: photoList[index].date,
+          weight: photoList[index].weight,
+          image: photoList[index].userPhoto,
+        ),
       ),
     );
   }

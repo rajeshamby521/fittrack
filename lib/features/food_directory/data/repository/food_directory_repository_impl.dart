@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:fittrack/constants/status_objects.dart';
+import 'package:fittrack/features/food_directory/data/dataModel/food_directory_model.dart';
 import 'package:fittrack/features/food_directory/data/dataSource/food_directory_datasource.dart';
 import 'package:fittrack/features/food_directory/domain/repository/food_directory_repository.dart';
 
@@ -7,5 +10,8 @@ class FoodDirectoryRepositoryImpl extends FoodDirectoryRepository {
   FoodDirectoryRepositoryImpl({this.foodDirectoryDataSource});
 
   @override
-  List<String> getFoodDirectoryData() => foodDirectoryDataSource.fetchFoodDirectoryData();
+  Future<Either<Failure, FoodCategoryModel>> getFoodDirectoryData() async {
+    final result = await foodDirectoryDataSource.fetchFoodDirectoryData();
+    return Right(result);
+  }
 }

@@ -26,30 +26,33 @@ Widget weightSheetListItem({String dateTime, List<WeightDatum> weightList}) {
   );
 }
 
-Widget weightDataList(List<WeightDatum> list) => ListView.builder(
-      shrinkWrap: true,
-      itemCount: list.length,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [gradientStart, gradientEnd]),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ListTile(
-              title: Align(
-                child: labels(text: list[index].date),
-                alignment: Alignment.centerLeft,
-              ),
-              dense: true,
-              trailing: labels(text: "$weight_kg ${list[index].weight}"),
-            ),
+Widget weightDataList(List<WeightDatum> list) {
+  list.sort((a, b) => a.date.compareTo(b.date));
+  return ListView.builder(
+    shrinkWrap: true,
+    itemCount: list.length,
+    physics: NeverScrollableScrollPhysics(),
+    itemBuilder: (BuildContext context, int index) {
+      return Padding(
+        padding: const EdgeInsets.all(5),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [gradientStart, gradientEnd]),
+            borderRadius: BorderRadius.circular(10),
           ),
-        );
-      },
-    );
+          child: ListTile(
+            title: Align(
+              child: labels(text: list[index].date),
+              alignment: Alignment.centerLeft,
+            ),
+            dense: true,
+            trailing: labels(text: "$weight_kg ${list[index].weight}"),
+          ),
+        ),
+      );
+    },
+  );
+}
 
 class AddWeightData extends StatelessWidget {
   Bloc bloc;
@@ -99,7 +102,6 @@ class AddWeightData extends StatelessWidget {
                     firstDate: DateTime(2010),
                     lastDate: DateTime(2050),
                   ).then((value) {
-                    print("///  $value");
                     bloc.add(GetDateEvent(dateTime: value));
                   });
                 },
@@ -121,7 +123,8 @@ class AddWeightData extends StatelessWidget {
                 textColor: white,
                 disable: false,
                 onPressed: () {
-                  // bloc.add(GetWeightSheetEvent(dateTime: dateTime, weight: weight ?? 60));
+                  bloc.add(SetWeightSheetEvent(
+                      date: dateTime.toString(), weight: weight.toString() ?? "60"));
                   Navigator.pop(context);
                 },
               ),

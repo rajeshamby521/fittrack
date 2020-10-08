@@ -5,7 +5,7 @@ import 'package:fittrack/ui_helper/strings.dart';
 import 'package:fittrack/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
 
-Widget listItem({RichFoodModel data}) {
+Widget listItem({Datum data}) {
   return Card(
     elevation: 10,
     margin: horizontalPadding(padding: 10),
@@ -18,10 +18,10 @@ Widget listItem({RichFoodModel data}) {
               children: [
                 Container(
                   height: height * 0.2,
-                  child: imageNetwork(img: data.image),
+                  child: imageNetwork(img: data.foodImage),
                 ),
                 verticalSpace(5),
-                rowData(label: servingSize, data: "${data.size} g"),
+                rowData(label: servingSize, data: data.servingSize),
               ],
             ),
             flex: 3,
@@ -29,15 +29,15 @@ Widget listItem({RichFoodModel data}) {
           Expanded(
             child: Column(
               children: [
-                labels(text: data.name, color: theme, size: 16),
+                labels(text: data.foodTitle, color: theme, size: 16),
                 verticalSpace(10),
                 rowData(label: calorie, data: data.calories.toString()),
                 verticalSpace(5),
-                rowData(label: fat, data: "${data.fat} g"),
+                rowData(label: fat, data: data.totalFat),
                 verticalSpace(5),
-                rowData(label: carbs, data: "${data.carbs} g"),
+                rowData(label: carbs, data: data.totalCarbohydrate),
                 verticalSpace(5),
-                rowData(label: protein, data: "${data.protein} g"),
+                rowData(label: protein, data: data.protein),
               ],
             ),
             flex: 4,

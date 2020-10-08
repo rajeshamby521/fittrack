@@ -7,33 +7,34 @@ import 'package:fittrack/features/photo_gallery/data/dataModel/photo_gallery_mod
 import 'package:fittrack/features/photo_gallery/domain/repository/photo_gallery_repository.dart';
 import 'package:fittrack/usecase/usecase.dart';
 
-class PhotoGalleryDataUseCase extends UseCase<PhotoGalleryDataModel, PhotoGalleryDataParams> {
+class PhotoGalleryDataUseCase extends UseCase<PhotoGalleryModel, PhotoGalleryDataParams> {
   PhotoGalleryRepository photoGalleryRepository;
 
   PhotoGalleryDataUseCase({this.photoGalleryRepository});
 
   @override
-  Future<Either<Failure, PhotoGalleryDataModel>> call(PhotoGalleryDataParams params) async =>
-      photoGalleryRepository.getPhotoGalleryDate(
-        image: params.image,
-        weight: params.weight,
-        dateTime: params.dateTime,
-      );
+  Future<Either<Failure, PhotoGalleryModel>> call(PhotoGalleryDataParams params) async =>
+      photoGalleryRepository.getPhotoGalleryDate(offSet: params.offSet);
 }
 
 class PhotoGalleryDataParams extends Equatable {
-  File image;
-  double weight;
-  DateTime dateTime;
+  int offSet;
 
-  PhotoGalleryDataParams({
-    this.dateTime,
-    this.image,
-    this.weight,
-  }) : super(
-          [weight, dateTime, image],
-        );
+  PhotoGalleryDataParams({this.offSet}) : super([offSet]);
 }
+// class PhotoGalleryDataParams extends Equatable {
+//   File image;
+//   double weight;
+//   DateTime dateTime;
+//
+//   PhotoGalleryDataParams({
+//     this.dateTime,
+//     this.image,
+//     this.weight,
+//   }) : super(
+//           [weight, dateTime, image],
+//         );
+// }
 
 class PhotoGalleryPhotoUseCase extends UseCase<File, PhotoGalleryPhotoParams> {
   PhotoGalleryRepository photoGalleryRepository;

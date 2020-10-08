@@ -1,3 +1,4 @@
+import 'package:fittrack/features/food_directory/data/dataModel/food_directory_model.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -15,7 +16,7 @@ class ErrorState extends FetchFoodDirectoryDataState {
   ErrorState(this.message);
 }
 class FetchFoodDirectoryDataState extends FoodDirectoryState {
-  List<String> data;
+  FoodCategoryModel data;
 
   FetchFoodDirectoryDataState({this.data});
 }

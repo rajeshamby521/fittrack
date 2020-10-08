@@ -1,3 +1,4 @@
+/*
 import 'presentation/pages/rich_food_directory/data/data_model/rich_food_model.dart';
 
 List<RichFoodModel> carbsData = [
@@ -377,3 +378,4 @@ List fatImages = [
   "https://www.potatogoodness.com/wp-content/uploads/2019/02/white-potato-beauty-shot.png",
   "https://anoregoncottage.com/wp-content/uploads/2016/12/Soft-WW-Sandwich-Bread_650x650.jpg",
 ];
+*/

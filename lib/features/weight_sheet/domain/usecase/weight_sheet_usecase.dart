@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fittrack/constants/status_objects.dart';
+import 'package:fittrack/features/weight_sheet/data/datamodel/set_weight_data_model.dart';
 import 'package:fittrack/features/weight_sheet/data/datamodel/weight_sheet_model.dart';
 import 'package:fittrack/features/weight_sheet/domain/repository/weight_sheet_repository.dart';
 import 'package:fittrack/usecase/usecase.dart';
@@ -13,6 +14,17 @@ class WeightSheetUseCase extends UseCase<WeightSheetModel, WeightSheetParams> {
   @override
   Future<Either<Failure, WeightSheetModel>> call(WeightSheetParams params) async {
     return await weightSheetRepository.getWeightSheetData(offSet: params.offSet);
+  }
+}
+
+class SetWeightSheetUseCase extends UseCase<SetWeightDataModel, SetWeightSheetParams> {
+  WeightSheetRepository weightSheetRepository;
+
+  SetWeightSheetUseCase({this.weightSheetRepository});
+
+  @override
+  Future<Either<Failure, SetWeightDataModel>> call(SetWeightSheetParams params) async {
+    return await weightSheetRepository.setWeightSheetData(date: params.date, weight: params.weight);
   }
 }
 
@@ -43,12 +55,13 @@ class WeightSheetParams extends Equatable {
 
   WeightSheetParams({this.offSet}) : super([offSet]);
 }
-// class WeightSheetParams extends Equatable {
-//   double weight;
-//   DateTime dateTime;
-//
-//   WeightSheetParams({this.weight, this.dateTime}) : super([weight, dateTime]);
-// }
+
+class SetWeightSheetParams extends Equatable {
+  String date;
+  String weight;
+
+  SetWeightSheetParams({this.date, this.weight}) : super([date, weight]);
+}
 
 class WeightParams extends Equatable {
   double weight;

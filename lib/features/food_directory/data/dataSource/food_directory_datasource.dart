@@ -1,3 +1,5 @@
+import 'package:fittrack/features/food_directory/data/dataModel/food_directory_model.dart';
+
 abstract class FoodDirectoryDataSource {
-  List<String> fetchFoodDirectoryData();
+  Future<FoodCategoryModel> fetchFoodDirectoryData();
 }

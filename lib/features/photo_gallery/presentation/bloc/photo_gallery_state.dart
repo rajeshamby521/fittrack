@@ -19,7 +19,7 @@ class ErrorState extends PhotoGalleryState {
 }
 
 class GetPhotoGalleryDataState extends PhotoGalleryState {
-  PhotoGalleryDataModel data;
+  PhotoGalleryModel data;
 
   GetPhotoGalleryDataState({this.data});
 }

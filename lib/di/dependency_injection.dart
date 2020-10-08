@@ -71,9 +71,7 @@ final getIt = GetIt.instance;
 Future<void> initGetServiceLocator() async {
   ///DASHBOARD PAGE
   //Bloc
-  getIt.registerFactory(() => DashboardBloc(
-        dashboardAnimateUseCase: getIt(),
-      ));
+  getIt.registerFactory(() => DashboardBloc(dashboardAnimateUseCase: getIt()));
   //Use case
   getIt.registerFactory(() => DashboardAnimateUseCase(repository: getIt()));
   //DataSource
@@ -155,10 +153,15 @@ Future<void> initGetServiceLocator() async {
 
   ///WEIGHT SHEET PAGE
   //Bloc
-  getIt.registerFactory(() =>
-      WeightSheetBloc(weightSheetUseCase: getIt(), weightUseCase: getIt(), dateUseCase: getIt()));
+  getIt.registerFactory(() => WeightSheetBloc(
+        weightSheetUseCase: getIt(),
+        weightUseCase: getIt(),
+        dateUseCase: getIt(),
+        setWeightSheetUseCase: getIt(),
+      ));
   //Use Case
   getIt.registerFactory(() => WeightSheetUseCase(weightSheetRepository: getIt()));
+  getIt.registerFactory(() => SetWeightSheetUseCase(weightSheetRepository: getIt()));
   getIt.registerFactory(() => WeightUseCase(weightSheetRepository: getIt()));
   getIt.registerFactory(() => DateUseCase(weightSheetRepository: getIt()));
   //DataSource
@@ -169,7 +172,7 @@ Future<void> initGetServiceLocator() async {
 
   ///FOOD DIRECTORY PAGE
   //Bloc
-  getIt.registerFactory(() => FoodDirectoryBloc(foodDirectoryRepository: getIt()));
+  getIt.registerFactory(() => FoodDirectoryBloc(foodDirectoryUseCase: getIt()));
   //Use case
   getIt.registerFactory(() => FoodDirectoryUseCase(foodDirectoryRepository: getIt()));
   //DataSource
@@ -180,7 +183,7 @@ Future<void> initGetServiceLocator() async {
 
   ///RICH FOOD PAGE
   //Bloc
-  getIt.registerFactory(() => RichFoodBloc(richFoodRepository: getIt()));
+  getIt.registerFactory(() => RichFoodBloc(richFoodUseCase: getIt()));
   //Use case
   getIt.registerFactory(() => RichFoodUseCase(richFoodRepository: getIt()));
   //DataSource

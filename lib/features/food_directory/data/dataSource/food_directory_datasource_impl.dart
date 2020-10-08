@@ -1,9 +1,23 @@
+import 'package:dio/dio.dart';
+import 'package:fittrack/features/food_directory/data/dataModel/food_directory_model.dart';
 import 'package:fittrack/features/food_directory/data/dataSource/food_directory_datasource.dart';
-import 'package:fittrack/ui_helper/strings.dart';
+import 'package:fittrack/network/api_provider.dart';
+import 'package:fittrack/network/api_strings.dart';
+import 'package:fittrack/utils/app_preference.dart';
 
 class FoodDirectoryDataSourceImpl extends FoodDirectoryDataSource {
-  List<String> _list = [fatRichFood, proteinRichFood, carbsRichFood];
+  FoodCategoryModel data;
+  Dio _dio = Dio(options);
 
   @override
-  List<String> fetchFoodDirectoryData() => _list;
+  Future<FoodCategoryModel> fetchFoodDirectoryData() async {
+    Map<String, dynamic> map = Map();
+    map[user_id] = AppPreference.getString(user_id);
+    map[access_token] = AppPreference.getString(access_token);
+    map[lang] = "0";
+
+    var response = await _dio.post(getFoodCategoryListURL, data: FormData.fromMap(map));
+    data = FoodCategoryModel.fromMap(response.data);
+    return data;
+  }
 }

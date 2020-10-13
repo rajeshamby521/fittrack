@@ -17,8 +17,8 @@ Widget dateLabel({String label}) => labels(text: label, color: theme);
 Widget weightLabel({String label}) => labels(text: "$weight_kg $label", color: green800);
 
 Widget listItem({
-  DateTime dateTime1,
-  DateTime dateTime2,
+  String dateTime1,
+  String dateTime2,
   String weight1,
   String weight2,
   String image1,
@@ -32,30 +32,33 @@ Widget listItem({
       ],
     );
 
-Widget item({DateTime dateTime, String weight, String image}) => Container(
+Widget item({String dateTime, String weight, String image}) => Container(
       height: height * 0.3,
       child: Card(
         color: white,
         elevation: 20,
         shadowColor: green,
         margin: EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: Container(
-                child: image != null
-                    ? Image.network(image, fit: BoxFit.fill)
-                    : imageAsset(img: bg_food_eat),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Container(
+                  child: image != null
+                      ? Image.network(image, fit: BoxFit.fill)
+                      : imageAsset(img: bg_food_eat),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: dateLabel(label: dateFormat(dateTime: dateTime, format: "dd MMMM yyyy")),
-            ),
-            weightLabel(label: weight),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: dateLabel(label: dateTime),
+              ),
+              weightLabel(label: weight),
+            ],
+          ),
         ),
       ),
     );
@@ -157,13 +160,13 @@ class AddPhotoData extends StatelessWidget {
                 disable: false,
                 onPressed: () {
                   if (img1 && img2) {
-                    bloc.add(GetCompareDataEvent(
-                      dateTime1: dateTime1,
-                      weight1: weight1 ?? 60,
-                      image1: image1,
-                      dateTime2: dateTime2,
-                      weight2: weight2 ?? 60,
-                      image2: image2,
+                    bloc.add(SetCompareDataEvent(
+                      beforeDate: dateTime1.toString(),
+                      beforeWeight: weight1.toString() ?? "60",
+                      beforeImage: image1,
+                      afterDate: dateTime2.toString(),
+                      afterWeight: weight2.toString() ?? "60",
+                      afterImage: image2,
                     ));
                     Navigator.pop(context);
                   }

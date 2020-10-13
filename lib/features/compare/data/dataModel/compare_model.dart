@@ -1,71 +1,84 @@
 // To parse this JSON data, do
 //
-//     final compareDataModel = compareDataModelFromMap(jsonString);
+//     final comparePhotoDataModel = comparePhotoDataModelFromMap(jsonString);
 
 import 'dart:convert';
 
 import 'dart:io';
 
-CompareDataModel compareDataModelFromMap(String str) => CompareDataModel.fromMap(json.decode(str));
+ComparePhotoDataModel comparePhotoDataModelFromMap(String str) =>
+    ComparePhotoDataModel.fromMap(json.decode(str));
 
-String compareDataModelToMap(CompareDataModel data) => json.encode(data.toMap());
+String comparePhotoDataModelToMap(ComparePhotoDataModel data) => json.encode(data.toMap());
 
-class CompareDataModel {
-  CompareDataModel({
-    this.status,
-    this.compareList,
+class ComparePhotoDataModel {
+  ComparePhotoDataModel({
+    this.nextOffset,
+    this.flag,
+    this.msg,
+    this.data,
   });
 
-  int status;
-  List<CompareList> compareList;
+  int nextOffset;
+  int flag;
+  String msg;
+  List<Datum> data;
 
-  factory CompareDataModel.fromMap(Map<String, dynamic> json) => CompareDataModel(
-        status: json["status"] == null ? null : json["status"],
-        compareList: json["Compare list"] == null
+  factory ComparePhotoDataModel.fromMap(Map<String, dynamic> json) => ComparePhotoDataModel(
+        nextOffset: json["next_offset"] == null ? null : json["next_offset"],
+        flag: json["flag"] == null ? null : json["flag"],
+        msg: json["msg"] == null ? null : json["msg"],
+        data: json["data"] == null
             ? null
-            : List<CompareList>.from(json["Compare list"].map((x) => CompareList.fromMap(x))),
+            : List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
-        "status": status == null ? null : status,
-        "Compare list":
-            compareList == null ? null : List<dynamic>.from(compareList.map((x) => x.toMap())),
+        "next_offset": nextOffset == null ? null : nextOffset,
+        "flag": flag == null ? null : flag,
+        "msg": msg == null ? null : msg,
+        "data": data == null ? null : List<dynamic>.from(data.map((x) => x.toMap())),
       };
 }
 
-class CompareList {
-  CompareList({
-    this.weight1,
-    this.dateTime1,
-    this.image1,
-    this.weight2,
-    this.dateTime2,
-    this.image2,
+class Datum {
+  Datum({
+    this.userComparePhotoId,
+    this.beforeDate,
+    this.beforeWeight,
+    this.userBeforePhoto,
+    this.afterDate,
+    this.afterWeight,
+    this.userAfterPhoto,
   });
 
-  String weight1;
-  DateTime dateTime1;
-  String image1;
-  String weight2;
-  DateTime dateTime2;
-  String image2;
+  String userComparePhotoId;
+  String beforeDate;
+  String beforeWeight;
+  String userBeforePhoto;
+  String afterDate;
+  String afterWeight;
+  String userAfterPhoto;
 
-  factory CompareList.fromMap(Map<String, dynamic> json) => CompareList(
-        weight1: json["weight1"] == null ? null : json["weight1"],
-        dateTime1: json["dateTime1"] == null ? null : DateTime.parse(json["dateTime1"]),
-        image1: json["image1"] == null ? null : json["image1"],
-        weight2: json["weight2"] == null ? null : json["weight2"],
-        dateTime2: json["dateTime2"] == null ? null : DateTime.parse(json["dateTime2"]),
-        image2: json["image2"] == null ? null : json["image2"],
+  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+        userComparePhotoId:
+            json["user_compare_photo_id"] == null ? null : json["user_compare_photo_id"],
+        beforeDate: json["before_date"] == null ? null : json["before_date"],
+        beforeWeight: json["before_weight"] == null ? null : json["before_weight"],
+        userBeforePhoto: json["user_before_photo"] == null ? null : json["user_before_photo"],
+        afterDate: json["after_date"] == null ? null : json["after_date"],
+        afterWeight: json["after_weight"] == null ? null : json["after_weight"],
+        userAfterPhoto: json["user_after_photo"] == null ? null : json["user_after_photo"],
       );
 
   Map<String, dynamic> toMap() => {
-        "weight1": weight1 == null ? null : weight1,
-        "dateTime1": dateTime1 == null ? null : dateTime1.toIso8601String(),
-        "image1": image1 == null ? null : image1,
-        "weight2": weight2 == null ? null : weight2,
-        "dateTime2": dateTime2 == null ? null : dateTime2.toIso8601String(),
-        "image2": image2 == null ? null : image2,
+        "user_compare_photo_id": userComparePhotoId == null ? null : userComparePhotoId,
+        "before_date": beforeDate == null ? null : beforeDate,
+        "before_weight": beforeWeight == null ? null : beforeWeight,
+        "user_before_photo": userBeforePhoto == null ? null : userBeforePhoto,
+        "after_date": afterDate == null ? null : afterDate,
+        "after_weight": afterWeight == null ? null : afterWeight,
+        "user_after_photo": userAfterPhoto == null ? null : userAfterPhoto,
       };
 }
 

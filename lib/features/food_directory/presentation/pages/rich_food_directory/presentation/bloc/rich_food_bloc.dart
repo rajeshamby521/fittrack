@@ -7,8 +7,9 @@ class RichFoodBloc extends Bloc<RichFoodEvent, RichFoodState> {
   RichFoodState get initialState => InitialRichFoodState();
 
   RichFoodUseCase richFoodUseCase;
+  RichFoodDetailUseCase richFoodDetailUseCase;
 
-  RichFoodBloc({this.richFoodUseCase});
+  RichFoodBloc({this.richFoodUseCase, this.richFoodDetailUseCase});
 
   @override
   Stream<RichFoodState> mapEventToState(RichFoodEvent event) async* {
@@ -22,6 +23,15 @@ class RichFoodBloc extends Bloc<RichFoodEvent, RichFoodState> {
       yield result.fold(
         (error) => ErrorState(error.message),
         (success) => FetchRichFoodDataState(data: success),
+      );
+    }
+    if (event is FetchRichFoodDetailDataEvent) {
+      yield LoadingBeginRichFoodDetailState();
+      final result = await richFoodDetailUseCase(RichFoodDetailParams(foodId: event.foodId));
+      yield LoadingEndRichFoodDetailState();
+      yield result.fold(
+        (error) => ErrorState(error.message),
+        (success) => FetchRichFoodDetailDataState(data: success),
       );
     }
   }

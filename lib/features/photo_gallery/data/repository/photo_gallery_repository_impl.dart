@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:fittrack/constants/status_objects.dart';
 import 'package:fittrack/features/photo_gallery/data/dataModel/photo_gallery_model.dart';
+import 'package:fittrack/features/photo_gallery/data/dataModel/set_photo_gallery_data_model.dart';
 import 'package:fittrack/features/photo_gallery/data/dataSource/photo_gallery_datasource.dart';
 import 'package:fittrack/features/photo_gallery/domain/repository/photo_gallery_repository.dart';
 
@@ -32,6 +33,17 @@ class PhotoGalleryRepositoryImpl extends PhotoGalleryRepository {
   @override
   Future<Either<Failure, PhotoGalleryModel>> getPhotoGalleryDate({int offSet}) async {
     final result = await photoGalleryDataSource.getPhotoGalleryData(offSet: offSet);
+    return Right(result);
+  }
+
+  @override
+  Future<Either<Failure, SetPhotoGalleryDataModel>> setPhotoGalleryDate(
+      {File image, String date, String weight}) async {
+    final result = await photoGalleryDataSource.setPhotoGalleryData(
+      image: image,
+      date: date,
+      weight: weight,
+    );
     return Right(result);
   }
 }

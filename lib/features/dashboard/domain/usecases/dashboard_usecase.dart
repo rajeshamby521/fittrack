@@ -17,7 +17,7 @@ class DashboardAnimateUseCase extends UseCase<bool, DashboardAnimateParams> {
 }
 
 class DashboardAnimateParams extends Equatable {
-  bool animate;
+  final bool animate;
 
   DashboardAnimateParams({this.animate});
 }

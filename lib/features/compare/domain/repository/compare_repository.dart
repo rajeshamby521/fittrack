@@ -3,16 +3,19 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:fittrack/constants/status_objects.dart';
 import 'package:fittrack/features/compare/data/dataModel/compare_model.dart';
+import 'package:fittrack/features/compare/data/dataModel/set_compare_data_model.dart';
 
 abstract class CompareRepository {
-  Future<Either<Failure, CompareDataModel>> getCompareDate({
-    File image1,
-    File image2,
-    double weight1,
-    double weight2,
-    DateTime dateTime1,
-    DateTime dateTime2,
+  Future<Either<Failure, SetComparePhotoDataModel>> setCompareDate({
+    File beforePhoto,
+    File afterPhoto,
+    String beforeWeight,
+    String afterWeight,
+    String beforeDate,
+    String afterDate,
   });
+
+  Future<Either<Failure, ComparePhotoDataModel>> getComparePhotoData({int offSet});
 
   Future<Either<Failure, WeightModel>> getWeight({double weight, int pic});
 

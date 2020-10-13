@@ -1,9 +1,9 @@
 abstract class CurrentBMRDataSource {
-  double getBMRData();
+  Future<double> getBMRData({double age, double weight, double height, bool gender});
 
-  double getCaloriesData();
+  Future<double> getCaloriesData({String activity, double bmr});
 
-  bool selectGenderData();
+  Future<bool> selectGenderData({bool gender});
 
-  String selectActivityData();
+  Future<String> selectActivityData({String activity});
 }

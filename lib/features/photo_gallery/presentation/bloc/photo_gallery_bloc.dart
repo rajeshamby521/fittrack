@@ -7,12 +7,14 @@ class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
   PhotoGalleryState get initialState => InitialPhotoGalleryState();
 
   PhotoGalleryDataUseCase photoGalleryDataUseCase;
+  SetPhotoGalleryDataUseCase setPhotoGalleryDataUseCase;
   PhotoGalleryWeightUseCase weightUseCase;
   PhotoGalleryPhotoUseCase photoUseCase;
   PhotoGalleryDateUseCase dateUseCase;
 
   PhotoGalleryBloc({
     this.photoGalleryDataUseCase,
+    this.setPhotoGalleryDataUseCase,
     this.dateUseCase,
     this.weightUseCase,
     this.photoUseCase,
@@ -27,6 +29,26 @@ class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
       yield result.fold(
         (error) => ErrorState(error.message),
         (success) => GetPhotoGalleryDataState(data: success),
+      );
+    }
+    if (event is GetPhotoGalleryNextPageDataEvent) {
+      yield LoadingBeginNextPageState();
+      final result = await photoGalleryDataUseCase(PhotoGalleryDataParams(offSet: event.offSet));
+      yield LoadingEndNextPageState();
+      yield result.fold(
+        (error) => ErrorState(error.message),
+        (success) => GetPhotoGalleryNextPageDataState(data: success),
+      );
+    }
+    if (event is SetPhotoGalleryDataEvent) {
+      final result = await setPhotoGalleryDataUseCase(SetPhotoGalleryDataParams(
+        date: event.date,
+        weight: event.weight,
+        image: event.image,
+      ));
+      yield result.fold(
+        (error) => ErrorState(error.message),
+        (success) => SetPhotoGalleryDataState(data: success),
       );
     }
 

@@ -16,31 +16,35 @@ Widget dateLabel({String label}) => labels(text: label, color: theme);
 
 Widget weightLabel({String label}) => labels(text: "$weight_kg $label", color: green800);
 
-Widget listItem({String date, String weight, String image}) => Card(
-      color: white,
-      elevation: 20,
-      shadowColor: green,
-      margin: EdgeInsets.all(15),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: Container(
-                child: image != null ? imageNetwork(img: image) : imageAsset(img: bg_food_eat),
-              ),
+Widget listItem({String date, String weight, String image}) {
+  return Card(
+    color: white,
+    elevation: 20,
+    shadowColor: green,
+    margin: EdgeInsets.all(15),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Container(
+              child: image != null && image.isNotEmpty
+                  ? imageNetwork(img: image)
+                  : imageAsset(img: bg_food_eat),
             ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: dateLabel(label: date),
-            ),
-            weightLabel(label: weight.toString()),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: dateLabel(label: date),
+          ),
+          weightLabel(label: weight.toString()),
+        ],
       ),
-    );
+    ),
+  );
+}
 
 class AddPhotoData extends StatelessWidget {
   Bloc bloc;
@@ -137,8 +141,13 @@ class AddPhotoData extends StatelessWidget {
                 disable: false,
                 onPressed: () {
                   if (img) {
-                    // bloc.add(GetPhotoGalleryDataEvent(
-                    //     dateTime: dateTime, weight: weight ?? 60, image: image));
+                    bloc.add(
+                      SetPhotoGalleryDataEvent(
+                        date: dateTime.toString(),
+                        weight: weight != null ? weight.toString() : "60",
+                        image: image,
+                      ),
+                    );
                     Navigator.pop(context);
                   }
                 },

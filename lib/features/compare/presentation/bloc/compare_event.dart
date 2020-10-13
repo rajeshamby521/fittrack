@@ -2,22 +2,33 @@ import 'dart:io';
 
 abstract class CompareEvent {}
 
-class GetCompareDataEvent extends CompareEvent {
-  DateTime dateTime1;
-  DateTime dateTime2;
-  double weight1;
-  double weight2;
-  File image1;
-  File image2;
+class SetCompareDataEvent extends CompareEvent {
+  File beforeImage;
+  File afterImage;
+  String beforeWeight;
+  String afterWeight;
+  String beforeDate;
+  String afterDate;
 
-  GetCompareDataEvent({
-    this.dateTime1,
-    this.dateTime2,
-    this.weight1,
-    this.weight2,
-    this.image1,
-    this.image2,
+  SetCompareDataEvent({
+    this.beforeImage,
+    this.afterImage,
+    this.beforeWeight,
+    this.afterWeight,
+    this.beforeDate,
+    this.afterDate,
   });
+}
+
+class GetComparePhotoDataEvent extends CompareEvent {
+  int offSet;
+
+  GetComparePhotoDataEvent({this.offSet});
+}
+class GetComparePhotoNextPageDataEvent extends CompareEvent {
+  int offSet;
+
+  GetComparePhotoNextPageDataEvent({this.offSet});
 }
 
 class GetComparePhotoEvent extends CompareEvent {

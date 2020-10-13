@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fittrack/constants/status_objects.dart';
 import 'package:fittrack/features/photo_gallery/data/dataModel/photo_gallery_model.dart';
+import 'package:fittrack/features/photo_gallery/data/dataModel/set_photo_gallery_data_model.dart';
 import 'package:fittrack/features/photo_gallery/domain/repository/photo_gallery_repository.dart';
 import 'package:fittrack/usecase/usecase.dart';
 
@@ -21,6 +22,29 @@ class PhotoGalleryDataParams extends Equatable {
   int offSet;
 
   PhotoGalleryDataParams({this.offSet}) : super([offSet]);
+}
+
+class SetPhotoGalleryDataUseCase
+    extends UseCase<SetPhotoGalleryDataModel, SetPhotoGalleryDataParams> {
+  PhotoGalleryRepository photoGalleryRepository;
+
+  SetPhotoGalleryDataUseCase({this.photoGalleryRepository});
+
+  @override
+  Future<Either<Failure, SetPhotoGalleryDataModel>> call(SetPhotoGalleryDataParams params) async =>
+      photoGalleryRepository.setPhotoGalleryDate(
+        image: params.image,
+        weight: params.weight,
+        date: params.date,
+      );
+}
+
+class SetPhotoGalleryDataParams extends Equatable {
+  File image;
+  String date;
+  String weight;
+
+  SetPhotoGalleryDataParams({this.image, this.date, this.weight}) : super([image, date, weight]);
 }
 // class PhotoGalleryDataParams extends Equatable {
 //   File image;

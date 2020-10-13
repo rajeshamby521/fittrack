@@ -58,11 +58,18 @@ class _RichFoodScreenState extends State<RichFoodScreen> {
                   : ListView.separated(
                       itemCount: richFoodDataModel.data.length,
                       itemBuilder: (context, index) => InkWell(
-                        child: listItem(data: richFoodDataModel.data[index]),
+                        child: listItem(
+                          data: richFoodDataModel.data[index],
+                          bloc: bloc,
+                          context: context,
+                        ),
                         // onTap: () => Navigator.of(context).push(
                         //   MaterialPageRoute(
-                        //       builder: (context) =>
-                        //           RichFoodDetailScreen(data: richFoodDataModel.data[index])),
+                        //     builder: (context) => RichFoodDetailScreen(
+                        //       bloc: bloc,
+                        //       foodId: richFoodDataModel.data[index].foodId,
+                        //     ),
+                        //   ),
                         // ),
                       ),
                       separatorBuilder: (context, index) => listDivider(padding: 10),

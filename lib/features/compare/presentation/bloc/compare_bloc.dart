@@ -6,13 +6,15 @@ class CompareBloc extends Bloc<CompareEvent, CompareState> {
   @override
   CompareState get initialState => InitialCompareState();
 
-  CompareDataUseCase compareDataUseCase;
+  GetCompareDataUseCase getCompareDataUseCase;
+  SetCompareDataUseCase setCompareDataUseCase;
   CompareWeightUseCase weightUseCase;
   ComparePhotoUseCase photoUseCase;
   CompareDateUseCase dateUseCase;
 
   CompareBloc({
-    this.compareDataUseCase,
+    this.getCompareDataUseCase,
+    this.setCompareDataUseCase,
     this.dateUseCase,
     this.photoUseCase,
     this.weightUseCase,
@@ -20,22 +22,40 @@ class CompareBloc extends Bloc<CompareEvent, CompareState> {
 
   @override
   Stream<CompareState> mapEventToState(CompareEvent event) async* {
-    if (event is GetCompareDataEvent) {
+    if (event is GetComparePhotoDataEvent) {
       yield LoadingBeginHomeState();
-      final result = await compareDataUseCase(CompareDataParams(
-        image1: event.image1,
-        image2: event.image2,
-        weight1: event.weight1,
-        weight2: event.weight2,
-        dateTime1: event.dateTime1,
-        dateTime2: event.dateTime2,
-      ));
+      final result = await getCompareDataUseCase(GetCompareDataParmas(offSet: event.offSet));
       yield LoadingEndHomeState();
       yield result.fold(
         (error) => ErrorState(error.message),
-        (success) => GetCompareDataState(data: success),
+        (success) => GetComparePhotoDataState(data: success),
       );
     }
+    if (event is GetComparePhotoNextPageDataEvent) {
+      yield LoadingBeginNextPageState();
+      final result = await getCompareDataUseCase(GetCompareDataParmas(offSet: event.offSet));
+      yield LoadingEndNextPageState();
+      yield result.fold(
+        (error) => ErrorState(error.message),
+        (success) => GetComparePhotoDataState(data: success),
+      );
+    }
+
+    if (event is SetCompareDataEvent) {
+      final result = await setCompareDataUseCase(SetCompareDataParams(
+        beforeImage: event.beforeImage,
+        afterImage: event.afterImage,
+        beforeDate: event.beforeDate,
+        afterDate: event.afterDate,
+        beforeWeight: event.beforeWeight,
+        afterWeight: event.afterWeight,
+      ));
+      yield result.fold(
+        (error) => ErrorState(error.message),
+        (success) => SetComparePhotoDataState(data: success),
+      );
+    }
+
     if (event is GetComparePhotoEvent) {
       yield LoadingBeginHomeState();
       final result = await photoUseCase(CompareImageParams(

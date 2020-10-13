@@ -1,4 +1,5 @@
 import 'package:fittrack/features/compare/data/dataModel/compare_model.dart';
+import 'package:fittrack/features/compare/data/dataModel/set_compare_data_model.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -10,32 +11,48 @@ class LoadingBeginHomeState extends CompareState {}
 
 class LoadingEndHomeState extends CompareState {}
 
+class LoadingBeginNextPageState extends CompareState {}
+
+class LoadingEndNextPageState extends CompareState {}
+
 class ErrorState extends CompareState {
   final String message;
 
   ErrorState(this.message);
 }
 
-class GetCompareDataState extends CompareState {
-  CompareDataModel data;
+class GetComparePhotoDataState extends CompareState {
+  final ComparePhotoDataModel data;
 
-  GetCompareDataState({this.data});
+  GetComparePhotoDataState({this.data});
+}
+
+class GetComparePhotoNextPageDataState extends CompareState {
+  final ComparePhotoDataModel data;
+
+  GetComparePhotoNextPageDataState({this.data});
+}
+
+class SetComparePhotoDataState extends CompareState {
+  final SetComparePhotoDataModel data;
+
+  SetComparePhotoDataState({this.data});
 }
 
 class GetComparePhotoState extends CompareState {
-  ImageModel imageModel;
+  final ImageModel imageModel;
 
   GetComparePhotoState({this.imageModel});
 }
 
 class GetCompareWeightState extends CompareState {
-  WeightModel weightModel;
+  final WeightModel weightModel;
 
   GetCompareWeightState({this.weightModel});
 }
 
 class GetCompareDateState extends CompareState {
-  DateModel dateTimeModel;
+  final DateModel dateTimeModel;
 
   GetCompareDateState({this.dateTimeModel});
 }

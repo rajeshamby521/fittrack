@@ -4,7 +4,22 @@ abstract class PhotoGalleryEvent {}
 
 class GetPhotoGalleryDataEvent extends PhotoGalleryEvent {
   int offSet;
+
   GetPhotoGalleryDataEvent({this.offSet});
+}
+
+class GetPhotoGalleryNextPageDataEvent extends PhotoGalleryEvent {
+  int offSet;
+
+  GetPhotoGalleryNextPageDataEvent({this.offSet});
+}
+
+class SetPhotoGalleryDataEvent extends PhotoGalleryEvent {
+  File image;
+  String date;
+  String weight;
+
+  SetPhotoGalleryDataEvent({this.image, this.date, this.weight});
 }
 
 // class GetPhotoGalleryDataEvent extends PhotoGalleryEvent {

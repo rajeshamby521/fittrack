@@ -22,13 +22,15 @@ class LogInButtonStatusUseCase extends UseCase<ErrorStatusModel, LogInButtonStat
 }
 
 class LogInButtonStatusParams extends Equatable {
-  bool emailValid;
-  bool passwordValid;
-  String emailMsg;
-  String passMsg;
+  final bool emailValid;
+  final bool passwordValid;
+  final String emailMsg;
+  final String passMsg;
 
-  LogInButtonStatusParams({this.emailValid, this.passwordValid, this.emailMsg, this.passMsg})
-      : super([emailValid, passwordValid, emailMsg, passMsg]);
+  LogInButtonStatusParams({this.emailValid, this.passwordValid, this.emailMsg, this.passMsg});
+
+  @override
+  List<Object> get props => [emailValid, passwordValid, emailMsg, passMsg];
 }
 
 class LogInUseCase extends UseCase<LogInModel, LogInParams> {
@@ -46,8 +48,11 @@ class LogInUseCase extends UseCase<LogInModel, LogInParams> {
 }
 
 class LogInParams extends Equatable {
-  String email;
-  String password;
+  final String email;
+  final String password;
 
-  LogInParams({this.email, this.password}) : super([email, password]);
+  LogInParams({this.email, this.password});
+
+  @override
+  List<Object> get props => [email, password];
 }

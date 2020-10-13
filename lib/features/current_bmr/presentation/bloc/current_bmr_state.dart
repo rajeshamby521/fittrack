@@ -5,10 +5,9 @@ abstract class CurrentBMRState {}
 
 class InitialCurrentBMRState extends CurrentBMRState {}
 
+// class LoadingBeginCurrentState extends CurrentBMRState {}
 
-class LoadingBeginHomeState extends CurrentBMRState {}
-
-class LoadingEndHomeState extends CurrentBMRState {}
+// class LoadingEndHomeState extends CurrentBMRState {}
 
 class ErrorState extends CurrentBMRState {
   final String message;

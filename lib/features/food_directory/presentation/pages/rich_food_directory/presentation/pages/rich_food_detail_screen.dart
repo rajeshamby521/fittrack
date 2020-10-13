@@ -1,34 +1,75 @@
+import 'package:fittrack/common/general/circular_progress_indicator.dart';
 import 'package:fittrack/common/general_widget.dart';
-import 'package:fittrack/features/food_directory/presentation/pages/rich_food_directory/data/data_model/rich_food_model.dart';
+import 'package:fittrack/features/food_directory/presentation/pages/rich_food_directory/data/data_model/rich_food_detail_model.dart';
+import 'package:fittrack/features/food_directory/presentation/pages/rich_food_directory/presentation/bloc/bloc.dart';
 import 'package:fittrack/features/food_directory/presentation/pages/rich_food_directory/presentation/widget/rich_food_widget.dart';
 import 'package:fittrack/ui_helper/colors.dart';
 import 'package:fittrack/ui_helper/strings.dart';
 import 'package:fittrack/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RichFoodDetailScreen extends StatelessWidget {
-  Datum data;
+class RichFoodDetailScreen extends StatefulWidget {
+  String foodId;
+  Bloc bloc;
+  String img;
+  String name;
+  int n;
 
-  RichFoodDetailScreen({this.data});
+  RichFoodDetailScreen({this.bloc, this.foodId, this.img, this.name, this.n});
+
+  @override
+  _RichFoodDetailScreenState createState() => _RichFoodDetailScreenState();
+}
+
+class _RichFoodDetailScreenState extends State<RichFoodDetailScreen> {
+  bool isLoading = true;
+  RichFoodDetailDataModel richFoodDetailData;
+  List<Widget> detailsData;
+
+  @override
+  void initState() {
+    widget.bloc.add(FetchRichFoodDetailDataEvent(foodId: widget.foodId));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> detailsData = [
-      rowData(label: servingSize, data: data.servingSize.toString() + " g"),
-      rowData(label: calories, data: data.calories.toString()),
-      rowData(label: "Total $fat", data: data.totalFat.toString() + " g"),
-      // rowData(label: saturatedFat, data: data.saturatedFat.toString() + " g"),
-      // rowData(label: polyUnsaturatedFat, data: data.polyUnsaturatedFat.toString() + " g"),
-      // rowData(label: monoUnsaturatedFat, data: data.monoUnsaturatedFat.toString() + " g"),
-      rowData(label: "Total $carbs", data: data.totalCarbohydrate.toString() + " g"),
-      // rowData(label: dietaryFiber, data: data.dietaryFiber.toString() + " g"),
-      // rowData(label: sugar, data: data.sugar.toString() + " g"),
-      rowData(label: protein, data: data.protein.toString() + " g"),
-      // rowData(label: cholesterol, data: data.cholesterol.toString() + " mg"),
-      // rowData(label: sodium, data: data.sodium.toString() + " mg"),
-      // rowData(label: potassium, data: data.potassium.toString() + " mg"),
-    ];
+    return BlocListener(
+      bloc: widget.bloc,
+      listener: (BuildContext context, state) {
+        if (state is LoadingBeginRichFoodDetailState) isLoading = true;
+        if (state is LoadingEndRichFoodDetailState) isLoading = false;
+        if (state is FetchRichFoodDetailDataState) {
+          richFoodDetailData = state.data;
 
+          detailsData = [
+            rowData(label: servingSize, data: richFoodDetailData.data.serviceSize),
+            rowData(label: calories, data: richFoodDetailData.data.calories),
+            rowData(label: "Total $fat", data: richFoodDetailData.data.totalFat),
+            rowData(label: saturatedFat, data: richFoodDetailData.data.saturatedFat),
+            rowData(label: polyUnsaturatedFat, data: richFoodDetailData.data.polyunsaturatedFat),
+            rowData(label: monoUnsaturatedFat, data: richFoodDetailData.data.monounsaturatedFat),
+            rowData(label: "Total $carbs", data: richFoodDetailData.data.totalCarbohydrate),
+            rowData(label: dietaryFiber, data: richFoodDetailData.data.dietaryFiber),
+            rowData(label: sugar, data: richFoodDetailData.data.sugar),
+            rowData(label: protein, data: richFoodDetailData.data.protein),
+            rowData(label: cholesterol, data: richFoodDetailData.data.cholesterol),
+            rowData(label: sodium, data: richFoodDetailData.data.sodium),
+            rowData(label: potassium, data: richFoodDetailData.data.potassium),
+          ];
+        }
+      },
+      child: BlocBuilder(
+        bloc: widget.bloc,
+        builder: (BuildContext context, state) {
+          return widget.n == 0 ? newPage() : bottomSheet();
+        },
+      ),
+    );
+  }
+
+  Widget newPage() {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -39,22 +80,72 @@ class RichFoodDetailScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: imageNetwork(img: data.foodImage, height: height * 0.3),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: labels(text: data.foodTitle.toUpperCase(), color: theme, size: 20),
-            ),
-            listDivider(padding: 20),
-            Expanded(
-              child: ListView(
-                itemExtent: 20,
-                children: detailsData,
+              child: Hero(
+                tag: widget.img,
+                child: imageNetwork(img: widget.img, height: height * 0.3),
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: imageNetwork(
+            //       img: richFoodDetailData.data.foodImage, height: height * 0.3),
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: labels(
+                text: widget.name.toUpperCase(),
+                color: theme,
+                size: 20,
+              ),
+            ),
+            listDivider(padding: 20),
+            isLoading
+                ? circularProgressIndicator
+                : Expanded(
+                    child: ListView(
+                      itemExtent: 20,
+                      children: detailsData,
+                    ),
+                  ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget bottomSheet() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Hero(
+            tag: widget.img,
+            child: imageNetwork(img: widget.img, height: height * 0.2),
+          ),
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: imageNetwork(
+        //       img: richFoodDetailData.data.foodImage, height: height * 0.3),
+        // ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: labels(
+            text: widget.name.toUpperCase(),
+            color: theme,
+            size: 20,
+          ),
+        ),
+        listDivider(padding: 20),
+        isLoading
+            ? circularProgressIndicator
+            : Expanded(
+                child: ListView(
+                  itemExtent: 20,
+                  children: detailsData,
+                ),
+              ),
+      ],
     );
   }
 }

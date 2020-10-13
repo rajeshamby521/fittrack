@@ -4,26 +4,28 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fittrack/constants/status_objects.dart';
 import 'package:fittrack/features/compare/data/dataModel/compare_model.dart';
+import 'package:fittrack/features/compare/data/dataModel/set_compare_data_model.dart';
 import 'package:fittrack/features/compare/domain/repository/compare_repository.dart';
 import 'package:fittrack/usecase/usecase.dart';
 
-class CompareDataUseCase extends UseCase<CompareDataModel, CompareDataParams> {
+//Compare data UseCase
+class GetCompareDataUseCase extends UseCase<ComparePhotoDataModel, GetCompareDataParmas> {
   CompareRepository compareRepository;
 
-  CompareDataUseCase({this.compareRepository});
+  GetCompareDataUseCase({this.compareRepository});
 
   @override
-  Future<Either<Failure, CompareDataModel>> call(CompareDataParams params) async =>
-      compareRepository.getCompareDate(
-        image1: params.image1,
-        image2: params.image2,
-        weight1: params.weight1,
-        weight2: params.weight2,
-        dateTime1: params.dateTime1,
-        dateTime2: params.dateTime2,
-      );
+  Future<Either<Failure, ComparePhotoDataModel>> call(GetCompareDataParmas params) async =>
+      compareRepository.getComparePhotoData(offSet: params.offSet);
 }
 
+class GetCompareDataParmas extends Equatable {
+  int offSet;
+
+  GetCompareDataParmas({this.offSet});
+}
+
+//Photo UseCase
 class ComparePhotoUseCase extends UseCase<ImageModel, CompareImageParams> {
   CompareRepository compareRepository;
 
@@ -34,6 +36,14 @@ class ComparePhotoUseCase extends UseCase<ImageModel, CompareImageParams> {
       compareRepository.getPhoto(image: params.image, pic: params.pic);
 }
 
+class CompareImageParams extends Equatable {
+  File image;
+  int pic;
+
+  CompareImageParams({this.image, this.pic});
+}
+
+// Weight UseCase
 class CompareWeightUseCase extends UseCase<WeightModel, CompareWeightParams> {
   CompareRepository compareRepository;
 
@@ -44,6 +54,14 @@ class CompareWeightUseCase extends UseCase<WeightModel, CompareWeightParams> {
       compareRepository.getWeight(weight: params.weight, pic: params.pic);
 }
 
+class CompareWeightParams extends Equatable {
+  double weight;
+  int pic;
+
+  CompareWeightParams({this.weight, this.pic});
+}
+
+// Date UseCase
 class CompareDateUseCase extends UseCase<DateModel, CompareDateParams> {
   CompareRepository compareRepository;
 
@@ -61,34 +79,39 @@ class CompareDateParams extends Equatable {
   CompareDateParams({this.dateTime, this.pic});
 }
 
-class CompareDataParams extends Equatable {
-  File image1;
-  File image2;
-  double weight1;
-  double weight2;
-  DateTime dateTime1;
-  DateTime dateTime2;
+//Set Compare Data UseCase
 
-  CompareDataParams({
-    this.image1,
-    this.image2,
-    this.weight1,
-    this.weight2,
-    this.dateTime1,
-    this.dateTime2,
+class SetCompareDataUseCase extends UseCase<SetComparePhotoDataModel, SetCompareDataParams> {
+  CompareRepository compareRepository;
+
+  SetCompareDataUseCase({this.compareRepository});
+
+  @override
+  Future<Either<Failure, SetComparePhotoDataModel>> call(SetCompareDataParams params) async =>
+      compareRepository.setCompareDate(
+        beforePhoto: params.beforeImage,
+        afterPhoto: params.afterImage,
+        beforeWeight: params.beforeWeight,
+        afterWeight: params.afterWeight,
+        beforeDate: params.beforeDate,
+        afterDate: params.afterDate,
+      );
+}
+
+class SetCompareDataParams extends Equatable {
+  File beforeImage;
+  File afterImage;
+  String beforeWeight;
+  String afterWeight;
+  String beforeDate;
+  String afterDate;
+
+  SetCompareDataParams({
+    this.beforeImage,
+    this.afterImage,
+    this.beforeWeight,
+    this.afterWeight,
+    this.beforeDate,
+    this.afterDate,
   });
-}
-
-class CompareWeightParams extends Equatable {
-  double weight;
-  int pic;
-
-  CompareWeightParams({this.weight, this.pic});
-}
-
-class CompareImageParams extends Equatable {
-  File image;
-  int pic;
-
-  CompareImageParams({this.image, this.pic});
 }

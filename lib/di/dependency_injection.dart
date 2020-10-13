@@ -1,3 +1,9 @@
+import 'package:fittrack/features/chart/data/dataSource/chart_datasource.dart';
+import 'package:fittrack/features/chart/data/dataSource/chart_datasource_impl.dart';
+import 'package:fittrack/features/chart/data/repository/chart_repository_impl.dart';
+import 'package:fittrack/features/chart/domain/repository/chart_repository.dart';
+import 'package:fittrack/features/chart/domain/usecase/chart_usecase.dart';
+import 'package:fittrack/features/chart/presentation/bloc/bloc.dart';
 import 'package:fittrack/features/compare/data/dataSource/compare_datasource.dart';
 import 'package:fittrack/features/compare/data/dataSource/compare_datasource_impl.dart';
 import 'package:fittrack/features/compare/data/repository/compare_repository_impl.dart';
@@ -34,6 +40,12 @@ import 'package:fittrack/features/food_directory/presentation/pages/rich_food_di
 import 'package:fittrack/features/food_directory/presentation/pages/rich_food_directory/domain/repository/rich_food_repository.dart';
 import 'package:fittrack/features/food_directory/presentation/pages/rich_food_directory/domain/usecase/rich_food_usecase.dart';
 import 'package:fittrack/features/food_directory/presentation/pages/rich_food_directory/presentation/bloc/bloc.dart';
+import 'package:fittrack/features/food_instructions/data/datasource/food_instruction_datasource.dart';
+import 'package:fittrack/features/food_instructions/data/datasource/food_instruction_datasource_impl.dart';
+import 'package:fittrack/features/food_instructions/data/repository/food_instruction_repository_impl.dart';
+import 'package:fittrack/features/food_instructions/domain/repository/food_instruction_repository.dart';
+import 'package:fittrack/features/food_instructions/domain/usecase/food_instruction_usecase.dart';
+import 'package:fittrack/features/food_instructions/presentation/bloc/bloc.dart';
 import 'package:fittrack/features/home/data/datasource/home_data_source.dart';
 import 'package:fittrack/features/home/data/datasource/home_data_source_impl.dart';
 import 'package:fittrack/features/home/data/repository/home_repository_impl.dart';
@@ -183,9 +195,13 @@ Future<void> initGetServiceLocator() async {
 
   ///RICH FOOD PAGE
   //Bloc
-  getIt.registerFactory(() => RichFoodBloc(richFoodUseCase: getIt()));
+  getIt.registerFactory(() => RichFoodBloc(
+        richFoodUseCase: getIt(),
+        richFoodDetailUseCase: getIt(),
+      ));
   //Use case
   getIt.registerFactory(() => RichFoodUseCase(richFoodRepository: getIt()));
+  getIt.registerFactory(() => RichFoodDetailUseCase(richFoodRepository: getIt()));
   //DataSource
   getIt.registerLazySingleton<RichFoodDataSource>(() => RichFoodDataSourceImpl());
   //Repository
@@ -196,12 +212,14 @@ Future<void> initGetServiceLocator() async {
   //Bloc
   getIt.registerFactory(() => PhotoGalleryBloc(
         photoGalleryDataUseCase: getIt(),
+        setPhotoGalleryDataUseCase: getIt(),
         weightUseCase: getIt(),
         dateUseCase: getIt(),
         photoUseCase: getIt(),
       ));
   //Use Case
   getIt.registerFactory(() => PhotoGalleryDataUseCase(photoGalleryRepository: getIt()));
+  getIt.registerFactory(() => SetPhotoGalleryDataUseCase(photoGalleryRepository: getIt()));
   getIt.registerFactory(() => PhotoGalleryPhotoUseCase(photoGalleryRepository: getIt()));
   getIt.registerFactory(() => PhotoGalleryWeightUseCase(photoGalleryRepository: getIt()));
   getIt.registerFactory(() => PhotoGalleryDateUseCase(photoGalleryRepository: getIt()));
@@ -214,13 +232,15 @@ Future<void> initGetServiceLocator() async {
   ///COMPARE PAGE
   //Bloc
   getIt.registerFactory(() => CompareBloc(
-        compareDataUseCase: getIt(),
+        getCompareDataUseCase: getIt(),
+        setCompareDataUseCase: getIt(),
         weightUseCase: getIt(),
         dateUseCase: getIt(),
         photoUseCase: getIt(),
       ));
   //Use Case
-  getIt.registerFactory(() => CompareDataUseCase(compareRepository: getIt()));
+  getIt.registerFactory(() => GetCompareDataUseCase(compareRepository: getIt()));
+  getIt.registerFactory(() => SetCompareDataUseCase(compareRepository: getIt()));
   getIt.registerFactory(() => ComparePhotoUseCase(compareRepository: getIt()));
   getIt.registerFactory(() => CompareWeightUseCase(compareRepository: getIt()));
   getIt.registerFactory(() => CompareDateUseCase(compareRepository: getIt()));
@@ -229,4 +249,25 @@ Future<void> initGetServiceLocator() async {
   //Repository
   getIt.registerLazySingleton<CompareRepository>(
       () => CompareRepositoryImpl(compareDataSource: getIt()));
+
+  ///FOOD INSTRUCTION PAGE
+  //Bloc
+  getIt.registerFactory(() => FoodInstructionBloc(foodInstructionUseCase: getIt()));
+  //Use Case
+  getIt.registerFactory(() => FoodInstructionUseCase(foodInstructionRepository: getIt()));
+  //DataSource
+  getIt.registerLazySingleton<FoodInstructionDataSource>(() => FoodInstructionDataSourceImpl());
+  //Repository
+  getIt.registerLazySingleton<FoodInstructionRepository>(
+      () => FoodInstructionRepositoryImpl(foodInstructionDataSource: getIt()));
+
+  ///CHART PAGE
+  //Bloc
+  getIt.registerFactory(() => ChartBloc(chartDataUseCase: getIt()));
+  //Use Case
+  getIt.registerFactory(() => ChartDataUseCase(chartRepository: getIt()));
+  //DataSource
+  getIt.registerLazySingleton<ChartDataSource>(() => ChartDataSourceImpl());
+  //Repository
+  getIt.registerLazySingleton<ChartRepository>(() => ChartRepositoryImpl(chartDataSource: getIt()));
 }

@@ -1,16 +1,19 @@
 import 'dart:io';
 
 import 'package:fittrack/features/compare/data/dataModel/compare_model.dart';
+import 'package:fittrack/features/compare/data/dataModel/set_compare_data_model.dart';
 
 abstract class CompareDataSource {
-  Future<CompareDataModel> getCompareData({
-    File image1,
-    File image2,
-    double weight1,
-    double weight2,
-    DateTime dateTime1,
-    DateTime dateTime2,
+  Future<SetComparePhotoDataModel> setComparePhotoData({
+    File beforePhoto,
+    File afterPhoto,
+    String beforeWeight,
+    String afterWeight,
+    String beforeDate,
+    String afterDate,
   });
+
+  Future<ComparePhotoDataModel> getComparePhotoData({int offSet});
 
   Future<ImageModel> getPhoto({File image, int pic});
 

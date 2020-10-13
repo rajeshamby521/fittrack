@@ -35,11 +35,26 @@ class CustomDrawer extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ListTile(
-                        leading: CircleAvatar(
-                          radius: 20,
-                          backgroundImage: userData.profileImage != null
-                              ? NetworkImage(userData.profileImage)
-                              : assetsImage(ic_fitness_person),
+                        leading: InkWell(
+                          child: Hero(
+                            tag: userData.profileImage ?? ic_fitness_person,
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundImage: userData.profileImage != null
+                                  ? networkImage(userData.profileImage)
+                                  : assetsImage(ic_fitness_person),
+                            ),
+                          ),
+                          onTap: () {
+                            if (userData.profileImage != null)
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ProfileImage(
+                                    image: userData.profileImage,
+                                  ),
+                                ),
+                              );
+                          },
                         ),
                         title: labels(text: userData.username ?? guest, color: theme, size: 14),
                         subtitle: Row(
@@ -59,7 +74,7 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ],
                         ),
-                        onTap: () => noLoginAlertDialog(context),
+                        onTap: () => userData.username ?? noLoginAlertDialog(context),
                       ),
                     ),
                     if (userData.userId != null)

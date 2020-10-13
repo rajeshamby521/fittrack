@@ -26,6 +26,7 @@ class GetWeightSheetState extends WeightSheetState {
 
   GetWeightSheetState({this.data});
 }
+
 class GetWeightSheetNextPageState extends WeightSheetState {
   WeightSheetModel data;
 

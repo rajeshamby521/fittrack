@@ -93,3 +93,8 @@ const String valid = "Valid";
 const String requiredField = "Required";
 const String invalid = "Invalid";
 const String passwordLength6 = "Password must be more than 6 character";
+
+const String foodInstruction = "Food Instruction";
+const String toAvoid = "TO AVOID";
+const String toEat = "TO EAT";
+const String food = "FOOD";

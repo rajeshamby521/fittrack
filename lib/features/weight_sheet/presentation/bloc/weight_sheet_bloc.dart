@@ -36,10 +36,8 @@ class WeightSheetBloc extends Bloc<WeightSheetEvent, WeightSheetState> {
       );
     }
     if (event is SetWeightSheetEvent) {
-      yield LoadingBeginHomeState();
       final result =
           await setWeightSheetUseCase(SetWeightSheetParams(date: event.date, weight: event.weight));
-      yield LoadingEndHomeState();
       yield result.fold(
         (error) => ErrorState(error.message),
         (success) => SetWeightSheetState(data: success),

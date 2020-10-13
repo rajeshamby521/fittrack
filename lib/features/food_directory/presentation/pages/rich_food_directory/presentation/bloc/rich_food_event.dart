@@ -6,3 +6,9 @@ class FetchRichFoodDataEvent extends RichFoodEvent {
 
   FetchRichFoodDataEvent({this.categoryId, this.offSet});
 }
+
+class FetchRichFoodDetailDataEvent extends RichFoodEvent {
+  String foodId;
+
+  FetchRichFoodDetailDataEvent({this.foodId});
+}

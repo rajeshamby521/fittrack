@@ -19,8 +19,6 @@ Widget icons({@required IconData icon, Color color, double size}) =>
 
 BoxShadow boxShadow({double radius, Color color}) => BoxShadow(blurRadius: radius, color: color);
 
-ImageProvider assetsImage(String img) => AssetImage(img);
-
 BoxDecoration boxDecoration({Color color, String image, ColorFilter colorFilter}) => BoxDecoration(
       color: color,
       boxShadow: [boxShadow(radius: 50, color: green100), boxShadow(radius: 50, color: black)],
@@ -31,6 +29,10 @@ Widget divider({Color color, double thickness}) => Divider(color: color, thickne
 
 Widget imageAsset({String img, double width, double height, Color color}) =>
     Image.asset(img, width: width, height: height, color: color, fit: BoxFit.fill);
+
+ImageProvider assetsImage(String img) => AssetImage(img);
+
+ImageProvider networkImage(String img) => NetworkImage(img);
 
 Widget imageNetwork({String img, double width, double height, Color color}) =>
     Image.network(img, width: width, height: height, color: color, fit: BoxFit.fill);
@@ -141,7 +143,6 @@ Widget picker(
     ),
   );
 }
-
 
 /*
 Widget textFieldBuilder({String hint, TextEditingController controller, String suffix}) {

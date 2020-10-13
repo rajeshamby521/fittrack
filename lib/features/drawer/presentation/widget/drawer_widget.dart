@@ -1,11 +1,13 @@
 import 'package:fittrack/common/general/alert_dialog.dart';
 import 'package:fittrack/common/general_widget.dart';
+import 'package:fittrack/features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'package:fittrack/features/drawer/presentation/bloc/drawer_event.dart';
 import 'package:fittrack/network/api_strings.dart';
 import 'package:fittrack/ui_helper/colors.dart';
 import 'package:fittrack/ui_helper/icons.dart';
 import 'package:fittrack/ui_helper/strings.dart';
 import 'package:fittrack/utils/app_preference.dart';
+import 'package:fittrack/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share/share.dart';
@@ -59,6 +61,7 @@ class DrawerList extends StatelessWidget {
           ),
         ),
         onTap: () async {
+          // DashBoardScreen.animate = true;
           String userId = await AppPreference.getString(user_id);
           if (pageNo == 13) {
             logoutAlertDialog(context);
@@ -70,6 +73,33 @@ class DrawerList extends StatelessWidget {
                 : noLoginAlertDialog(context);
           }
         },
+      ),
+    );
+  }
+}
+
+class ProfileImage extends StatelessWidget {
+  String image;
+
+  ProfileImage({this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: InkWell(
+            child: Hero(
+              tag: image,
+              child: imageNetwork(
+                img: image,
+                height: height,
+                width: width,
+              ),
+            ),
+            onTap: () => Navigator.pop(context),
+          ),
+        ),
       ),
     );
   }

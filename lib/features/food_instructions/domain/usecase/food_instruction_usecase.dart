@@ -16,7 +16,10 @@ class FoodInstructionUseCase extends UseCase<FoodInstructionDataModel, FoodInstr
 }
 
 class FoodInstructionDataParams extends Equatable {
-  String foodAvoidId;
+  final String foodAvoidId;
 
-  FoodInstructionDataParams({this.foodAvoidId}) : super([foodAvoidId]);
+  FoodInstructionDataParams({this.foodAvoidId});
+
+  @override
+  List<Object> get props => [foodAvoidId];
 }

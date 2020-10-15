@@ -9,6 +9,7 @@ import 'package:fittrack/features/login/presentation/pages/login_screen.dart';
 import 'package:fittrack/network/api_strings.dart';
 import 'package:fittrack/ui_helper/colors.dart';
 import 'package:fittrack/ui_helper/images.dart';
+import 'package:fittrack/ui_helper/strings.dart';
 import 'package:fittrack/utils/app_preference.dart';
 import 'package:fittrack/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ Future<String> _getToken() async {
 setUpAll() async {
   WidgetsFlutterBinding.ensureInitialized();
   initGetServiceLocator();
-  await AppPreference.init();
+  AppPreference.init();
   String deviceToken = await _getToken();
   AppPreference.set(device_token, deviceToken);
 }
@@ -41,9 +42,8 @@ Future<void> main() async {
   await setUpAll();
   runApp(
     MaterialApp(
-      theme: ThemeData(cursorColor: theme),
       debugShowCheckedModeBanner: false,
-      title: "FITTRACK",
+      title: fitTrack,
       home: LogInScreen(),
     ),
   );
@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
       backgroundColor: home_background,
       body: SafeArea(
         child: BlocListener(
-          bloc: bloc,
+          cubit: bloc,
           listener: (BuildContext context, state) {
             if (state is LoadingBeginHomeState) {
               isLoading = true;
@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
             }
           },
           child: BlocBuilder(
-            bloc: bloc,
+            cubit: bloc,
             builder: (BuildContext context, state) {
               // return LogInScreen();
               return Stack(

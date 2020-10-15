@@ -6,10 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ChartBloc extends Bloc<ChartEvent, ChartState> {
   ChartDataUseCase chartDataUseCase;
 
-  ChartBloc({this.chartDataUseCase});
-
-  @override
-  ChartState get initialState => InitialChartState();
+  ChartBloc({this.chartDataUseCase}) : super(InitialChartState());
 
   @override
   Stream<ChartState> mapEventToState(ChartEvent event) async* {

@@ -1,4 +1,4 @@
-import 'package:fittrack/common/appbar_widget.dart';
+import 'package:fittrack/common/general/appbar_widget.dart';
 import 'package:fittrack/common/general/circular_progress_indicator.dart';
 import 'package:fittrack/common/general/date_time_format.dart';
 import 'package:fittrack/common/general_widget.dart';
@@ -42,7 +42,7 @@ class _WeightSheetScreenState extends State<WeightSheetScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is LoadingBeginHomeState) isLoading = true;
         if (state is LoadingEndHomeState) isLoading = false;
@@ -104,7 +104,7 @@ class _WeightSheetScreenState extends State<WeightSheetScreen> {
         }
       },
       child: BlocBuilder(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return SafeArea(
             child: Scaffold(

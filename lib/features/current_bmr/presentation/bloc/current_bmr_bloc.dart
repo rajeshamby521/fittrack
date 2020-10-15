@@ -3,9 +3,6 @@ import 'package:fittrack/features/current_bmr/presentation/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CurrentBMRBloc extends Bloc<CurrentBMREvent, CurrentBMRState> {
-  @override
-  CurrentBMRState get initialState => InitialCurrentBMRState();
-
   CalculateBMRUseCase calculateBMRUseCase;
   CalculateCaloriesUseCase calculateCaloriesUseCase;
   SelectGenderUseCase selectGenderUseCase;
@@ -16,7 +13,7 @@ class CurrentBMRBloc extends Bloc<CurrentBMREvent, CurrentBMRState> {
     this.calculateCaloriesUseCase,
     this.selectGenderUseCase,
     this.selectActivityUseCase,
-  });
+  }) : super(InitialCurrentBMRState());
 
   @override
   Stream<CurrentBMRState> mapEventToState(CurrentBMREvent event) async* {

@@ -17,13 +17,15 @@ class CalculateBMRUseCase extends UseCase<double, CalculateBMRParams> {
 }
 
 class CalculateBMRParams extends Equatable {
-  double age;
-  double weight;
-  double height;
-  bool gender;
+  final double age;
+  final double weight;
+  final double height;
+  final bool gender;
 
-  CalculateBMRParams({this.weight, this.height, this.gender, this.age})
-      : super([weight, height, age, gender]);
+  CalculateBMRParams({this.weight, this.height, this.gender, this.age});
+
+  @override
+  List<Object> get props => [weight, height, age, gender];
 }
 
 class CalculateCaloriesUseCase extends UseCase<double, CalculateCaloriesParams> {
@@ -37,10 +39,13 @@ class CalculateCaloriesUseCase extends UseCase<double, CalculateCaloriesParams> 
 }
 
 class CalculateCaloriesParams extends Equatable {
-  String activity;
-  double bmr;
+  final String activity;
+  final double bmr;
 
-  CalculateCaloriesParams({this.activity, this.bmr}) : super([activity, bmr]);
+  CalculateCaloriesParams({this.activity, this.bmr});
+
+  @override
+  List<Object> get props => [activity, bmr];
 }
 
 class SelectGenderUseCase extends UseCase<bool, SelectGenderParams> {
@@ -54,9 +59,12 @@ class SelectGenderUseCase extends UseCase<bool, SelectGenderParams> {
 }
 
 class SelectGenderParams extends Equatable {
-  bool gender;
+  final bool gender;
 
   SelectGenderParams({this.gender});
+
+  @override
+  List<Object> get props => [gender];
 }
 
 class SelectActivityUseCase extends UseCase<String, SelectActivityParams> {
@@ -70,7 +78,10 @@ class SelectActivityUseCase extends UseCase<String, SelectActivityParams> {
 }
 
 class SelectActivityParams extends Equatable {
-  String activity;
+  final String activity;
 
   SelectActivityParams({this.activity});
+
+  @override
+  List<Object> get props => [activity];
 }

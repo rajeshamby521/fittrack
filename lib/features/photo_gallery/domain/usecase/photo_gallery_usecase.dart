@@ -19,9 +19,12 @@ class PhotoGalleryDataUseCase extends UseCase<PhotoGalleryModel, PhotoGalleryDat
 }
 
 class PhotoGalleryDataParams extends Equatable {
-  int offSet;
+  final int offSet;
 
-  PhotoGalleryDataParams({this.offSet}) : super([offSet]);
+  PhotoGalleryDataParams({this.offSet});
+
+  @override
+  List<Object> get props => [offSet];
 }
 
 class SetPhotoGalleryDataUseCase
@@ -40,25 +43,15 @@ class SetPhotoGalleryDataUseCase
 }
 
 class SetPhotoGalleryDataParams extends Equatable {
-  File image;
-  String date;
-  String weight;
+  final File image;
+  final String date;
+  final String weight;
 
-  SetPhotoGalleryDataParams({this.image, this.date, this.weight}) : super([image, date, weight]);
+  SetPhotoGalleryDataParams({this.image, this.date, this.weight});
+
+  @override
+  List<Object> get props => [image, date, weight];
 }
-// class PhotoGalleryDataParams extends Equatable {
-//   File image;
-//   double weight;
-//   DateTime dateTime;
-//
-//   PhotoGalleryDataParams({
-//     this.dateTime,
-//     this.image,
-//     this.weight,
-//   }) : super(
-//           [weight, dateTime, image],
-//         );
-// }
 
 class PhotoGalleryPhotoUseCase extends UseCase<File, PhotoGalleryPhotoParams> {
   PhotoGalleryRepository photoGalleryRepository;
@@ -71,9 +64,12 @@ class PhotoGalleryPhotoUseCase extends UseCase<File, PhotoGalleryPhotoParams> {
 }
 
 class PhotoGalleryPhotoParams extends Equatable {
-  File image;
+  final File image;
 
-  PhotoGalleryPhotoParams({this.image}) : super([image]);
+  PhotoGalleryPhotoParams({this.image});
+
+  @override
+  List<Object> get props => [image];
 }
 
 class PhotoGalleryWeightUseCase extends UseCase<double, PhotoGalleryWeightParams> {
@@ -87,9 +83,12 @@ class PhotoGalleryWeightUseCase extends UseCase<double, PhotoGalleryWeightParams
 }
 
 class PhotoGalleryWeightParams extends Equatable {
-  double weight;
+  final double weight;
 
-  PhotoGalleryWeightParams({this.weight}) : super([weight]);
+  PhotoGalleryWeightParams({this.weight});
+
+  @override
+  List<Object> get props => [weight];
 }
 
 class PhotoGalleryDateUseCase extends UseCase<DateTime, PhotoGalleryDateParams> {
@@ -103,7 +102,10 @@ class PhotoGalleryDateUseCase extends UseCase<DateTime, PhotoGalleryDateParams> 
 }
 
 class PhotoGalleryDateParams extends Equatable {
-  DateTime dateTime;
+  final DateTime dateTime;
 
-  PhotoGalleryDateParams({this.dateTime}) : super([dateTime]);
+  PhotoGalleryDateParams({this.dateTime});
+
+  @override
+  List<Object> get props => [dateTime];
 }

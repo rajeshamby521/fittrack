@@ -18,4 +18,7 @@ class FoodDirectoryUseCase extends UseCase<FoodCategoryModel, FoodDirectoryDataP
 
 class FoodDirectoryDataParams extends Equatable {
   FoodDirectoryDataParams();
+
+  @override
+  List<Object> get props => [];
 }

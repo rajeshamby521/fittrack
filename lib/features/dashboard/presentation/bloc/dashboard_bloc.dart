@@ -4,16 +4,12 @@ import 'package:fittrack/features/dashboard/presentation/bloc/dashboard_state.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
-  @override
-  DashboardState get initialState => InitialDashboardState();
-
   DashboardAnimateUseCase dashboardAnimateUseCase;
 
-  DashboardBloc({this.dashboardAnimateUseCase});
+  DashboardBloc({this.dashboardAnimateUseCase}) : super(InitialDashboardState());
 
   @override
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
-
     if (event is AnimatePageEvent) {
       yield LoadingBeginHomeState();
       final result = await dashboardAnimateUseCase(DashboardAnimateParams(animate: event.animate));

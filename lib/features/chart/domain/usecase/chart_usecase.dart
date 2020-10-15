@@ -19,5 +19,8 @@ class ChartDataParams extends Equatable {
   final String dateType;
   final String month;
 
-  ChartDataParams({this.month, this.dateType}) : super([dateType, month]);
+  ChartDataParams({this.month, this.dateType});
+
+  @override
+  List<Object> get props => [dateType, month];
 }

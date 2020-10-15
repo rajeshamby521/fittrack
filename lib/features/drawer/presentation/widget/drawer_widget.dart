@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share/share.dart';
 
 class DrawerList extends StatelessWidget {
-  Bloc bloc;
+  final Bloc bloc;
 
   DrawerList({this.bloc});
 
@@ -30,7 +30,7 @@ class DrawerList extends StatelessWidget {
           drawerItem(context: context, icon: ic_food, label: food_instructions, pageNo: 5),
           drawerItem(context: context, icon: ic_chat, label: chat_with_krira, pageNo: 6),
           drawerItem(context: context, icon: ic_gallery, label: photo_gallery, pageNo: 7),
-          drawerItem(context: context, icon: ic_chat, label: chart, pageNo: 8),
+          drawerItem(context: context, icon: ic_chart, label: chart, pageNo: 8),
           drawerItem(context: context, icon: ic_compare, label: compare, pageNo: 9),
           drawerItem(context: context, icon: ic_forum, label: forum, pageNo: 10),
           drawerItem(context: context, icon: ic_feedback, label: feedback, pageNo: 11),

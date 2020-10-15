@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart';
+const String fitTrack = "FITTRACK";
 
 const String home = "Home";
 const String current_bmi = "Current BMI";
@@ -19,8 +19,10 @@ const String bmr = "BMR";
 const String bmi = "BMI";
 const String weightSheet = "Weight Sheet";
 const String age_year = "Age : ";
-const String year = "Years";
+const String year = "Year";
 const String weight_kg = "Weight : ";
+const String weight = "Weight (Kg)";
+const String month = "Month";
 const String kg = "Kg";
 const String height_cm = "Height : ";
 const String cm = "Cm";

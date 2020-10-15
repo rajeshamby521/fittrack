@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashBoardScreen extends StatelessWidget {
   static bool animate = false;
-  int pageNo;
+  final int pageNo;
 
   DashBoardScreen({this.pageNo});
 
@@ -16,13 +16,13 @@ class DashBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is AnimatePageState) DashBoardScreen.animate = state.animate;
         print(DashBoardScreen.animate);
       },
       child: BlocBuilder<DashboardBloc, DashboardState>(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return ScaleAnimatedWidget(
             enabled: DashBoardScreen.animate,

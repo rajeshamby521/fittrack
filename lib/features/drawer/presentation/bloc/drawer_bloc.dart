@@ -4,12 +4,9 @@ import 'package:fittrack/features/drawer/presentation/bloc/drawer_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
-  @override
-  DrawerState get initialState => InitialDrawerState();
-
   DrawerUseCase drawerUseCase;
 
-  DrawerBloc({this.drawerUseCase});
+  DrawerBloc({this.drawerUseCase}) : super(InitialDrawerState());
 
   @override
   Stream<DrawerState> mapEventToState(DrawerEvent event) async* {

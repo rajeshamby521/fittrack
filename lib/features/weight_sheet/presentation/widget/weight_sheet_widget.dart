@@ -66,7 +66,7 @@ class AddWeightData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is LoadingBeginHomeState)
           isLoading = true;
@@ -77,7 +77,7 @@ class AddWeightData extends StatelessWidget {
         else if (state is GetDateState) dateTime = state.dateTime;
       },
       child: BlocBuilder(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -93,7 +93,7 @@ class AddPhotoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         // if (state is GetCompareWeight1State) weight1 = state.weight;
         if (state is GetCompareWeightState) {
@@ -117,7 +117,7 @@ class AddPhotoData extends StatelessWidget {
         if (image2 != null) img2 = true;
       },
       child: BlocBuilder(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,

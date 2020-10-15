@@ -34,14 +34,14 @@ class _RichFoodScreenState extends State<RichFoodScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is LoadingBeginRichFoodState) isLoading = true;
         if (state is LoadingEndRichFoodState) isLoading = false;
         if (state is FetchRichFoodDataState) richFoodDataModel = state.data;
       },
       child: BlocBuilder(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return SafeArea(
             child: Scaffold(

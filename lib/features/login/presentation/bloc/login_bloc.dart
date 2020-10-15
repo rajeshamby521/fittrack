@@ -4,13 +4,10 @@ import 'package:fittrack/features/login/presentation/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LogInBloc extends Bloc<LogInEvent, LogInState> {
-  @override
-  LogInState get initialState => InitialLogInState();
-
   LogInButtonStatusUseCase logInButtonStatusUseCase;
   LogInUseCase logInUseCase;
 
-  LogInBloc({this.logInButtonStatusUseCase,this.logInUseCase});
+  LogInBloc({this.logInButtonStatusUseCase, this.logInUseCase}) : super(InitialLogInState());
 
   @override
   Stream<LogInState> mapEventToState(LogInEvent event) async* {

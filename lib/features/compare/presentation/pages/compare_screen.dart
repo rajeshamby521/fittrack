@@ -1,4 +1,4 @@
-import 'package:fittrack/common/appbar_widget.dart';
+import 'package:fittrack/common/general/appbar_widget.dart';
 import 'package:fittrack/common/general/circular_progress_indicator.dart';
 import 'package:fittrack/common/general_widget.dart';
 import 'package:fittrack/di/dependency_injection.dart';
@@ -39,7 +39,7 @@ class _CompareScreenState extends State<CompareScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is LoadingBeginHomeState) isLoading = true;
         if (state is LoadingEndHomeState) isLoading = false;
@@ -68,7 +68,7 @@ class _CompareScreenState extends State<CompareScreen> {
         }
       },
       child: BlocBuilder(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return Scaffold(
             appBar: appbar(bloc: widget.bloc, context: context, title: compare),

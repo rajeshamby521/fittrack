@@ -1,4 +1,4 @@
-import 'package:fittrack/common/appbar_widget.dart';
+import 'package:fittrack/common/general/appbar_widget.dart';
 import 'package:fittrack/common/general/circular_progress_indicator.dart';
 import 'package:fittrack/common/general_widget.dart';
 import 'package:fittrack/di/dependency_injection.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FoodDirectory extends StatefulWidget {
-  Bloc bloc;
+  final Bloc bloc;
 
   FoodDirectory({this.bloc});
 
@@ -44,7 +44,7 @@ class _FoodDirectoryState extends State<FoodDirectory> {
         body: Container(
           decoration: boxDecoration(image: bg_bmi_screen),
           child: BlocListener(
-            bloc: bloc,
+            cubit: bloc,
             listener: (BuildContext context, state) {
               if (state is LoadingBeginHomeState)
                 isLoading = true;
@@ -53,7 +53,7 @@ class _FoodDirectoryState extends State<FoodDirectory> {
               else if (state is FetchFoodDirectoryDataState) foodDirectoryList = state.data;
             },
             child: BlocBuilder(
-              bloc: bloc,
+              cubit: bloc,
               builder: (BuildContext context, state) {
                 return Padding(
                   padding: verticalPadding(padding: 10),

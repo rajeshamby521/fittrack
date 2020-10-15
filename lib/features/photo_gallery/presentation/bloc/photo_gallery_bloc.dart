@@ -3,9 +3,6 @@ import 'package:fittrack/features/photo_gallery/presentation/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
-  @override
-  PhotoGalleryState get initialState => InitialPhotoGalleryState();
-
   PhotoGalleryDataUseCase photoGalleryDataUseCase;
   SetPhotoGalleryDataUseCase setPhotoGalleryDataUseCase;
   PhotoGalleryWeightUseCase weightUseCase;
@@ -18,7 +15,7 @@ class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
     this.dateUseCase,
     this.weightUseCase,
     this.photoUseCase,
-  });
+  }) : super(InitialPhotoGalleryState());
 
   @override
   Stream<PhotoGalleryState> mapEventToState(PhotoGalleryEvent event) async* {

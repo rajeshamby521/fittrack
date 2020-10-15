@@ -16,4 +16,7 @@ class HomeUseCase extends UseCase<List<String>, HomeDataParams> {
   }
 }
 
-class HomeDataParams extends Equatable {}
+class HomeDataParams extends Equatable {
+  @override
+  List<Object> get props => [];
+}

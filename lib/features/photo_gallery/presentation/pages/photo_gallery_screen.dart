@@ -1,4 +1,4 @@
-import 'package:fittrack/common/appbar_widget.dart';
+import 'package:fittrack/common/general/appbar_widget.dart';
 import 'package:fittrack/common/general/circular_progress_indicator.dart';
 import 'package:fittrack/common/general/date_time_format.dart';
 import 'package:fittrack/common/general_widget.dart';
@@ -44,7 +44,7 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is GetPhotoGalleryDataState || state is GetPhotoGalleryNextPageDataState) {
           list = state.data;
@@ -77,7 +77,7 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
         }
       },
       child: BlocBuilder(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return Scaffold(
             appBar: appbar(bloc: widget.bloc, context: context, title: photoGallery),

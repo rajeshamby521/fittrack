@@ -15,7 +15,10 @@ class DrawerUseCase extends UseCase<int, DrawerParams> {
 }
 
 class DrawerParams extends Equatable {
-  int pageNo;
+  final int pageNo;
 
-  DrawerParams({this.pageNo}) : super([pageNo]);
+  DrawerParams({this.pageNo});
+
+  @override
+  List<Object> get props => [pageNo];
 }

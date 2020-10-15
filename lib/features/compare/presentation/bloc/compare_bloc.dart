@@ -3,9 +3,6 @@ import 'package:fittrack/features/compare/presentation/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CompareBloc extends Bloc<CompareEvent, CompareState> {
-  @override
-  CompareState get initialState => InitialCompareState();
-
   GetCompareDataUseCase getCompareDataUseCase;
   SetCompareDataUseCase setCompareDataUseCase;
   CompareWeightUseCase weightUseCase;
@@ -18,7 +15,7 @@ class CompareBloc extends Bloc<CompareEvent, CompareState> {
     this.dateUseCase,
     this.photoUseCase,
     this.weightUseCase,
-  });
+  }) : super(InitialCompareState());
 
   @override
   Stream<CompareState> mapEventToState(CompareEvent event) async* {

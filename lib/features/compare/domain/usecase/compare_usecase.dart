@@ -23,6 +23,9 @@ class GetCompareDataParmas extends Equatable {
   int offSet;
 
   GetCompareDataParmas({this.offSet});
+
+  @override
+  List<Object> get props => [offSet];
 }
 
 //Photo UseCase
@@ -41,6 +44,9 @@ class CompareImageParams extends Equatable {
   int pic;
 
   CompareImageParams({this.image, this.pic});
+
+  @override
+  List<Object> get props => [image, pic];
 }
 
 // Weight UseCase
@@ -59,6 +65,9 @@ class CompareWeightParams extends Equatable {
   int pic;
 
   CompareWeightParams({this.weight, this.pic});
+
+  @override
+  List<Object> get props => [weight, pic];
 }
 
 // Date UseCase
@@ -77,6 +86,9 @@ class CompareDateParams extends Equatable {
   int pic;
 
   CompareDateParams({this.dateTime, this.pic});
+
+  @override
+  List<Object> get props => [dateTime, pic];
 }
 
 //Set Compare Data UseCase
@@ -114,4 +126,14 @@ class SetCompareDataParams extends Equatable {
     this.beforeDate,
     this.afterDate,
   });
+
+  @override
+  List<Object> get props => [
+        beforeImage,
+        afterImage,
+        beforeWeight,
+        afterWeight,
+        beforeDate,
+        afterDate,
+      ];
 }

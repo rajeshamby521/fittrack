@@ -1,4 +1,4 @@
-import 'package:fittrack/common/appbar_widget.dart';
+import 'package:fittrack/common/general/appbar_widget.dart';
 import 'package:fittrack/common/general/gender_widget.dart';
 import 'package:fittrack/common/general_widget.dart';
 import 'package:fittrack/di/dependency_injection.dart';
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CurrentBMRScreen extends StatefulWidget {
-  Bloc bloc;
+  final Bloc bloc;
 
   CurrentBMRScreen({this.bloc});
 
@@ -40,7 +40,7 @@ class _CurrentBMRScreenState extends State<CurrentBMRScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is CalculateBMRState) bmrAns = state.bmr;
         if (state is CalculateCaloriesState) caloriesAns = state.calories;
@@ -48,7 +48,7 @@ class _CurrentBMRScreenState extends State<CurrentBMRScreen> {
         if (state is SelectActivityState) activityMode = state.activity;
       },
       child: BlocBuilder(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return SafeArea(
             child: Scaffold(

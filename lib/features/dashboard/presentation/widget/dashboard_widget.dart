@@ -14,7 +14,7 @@ Widget DashBoardPage({int pageNo, Bloc bloc}) {
   switch (pageNo) {
     // Home
     case 0:
-      return CompareScreen(bloc: bloc);
+      return ChartScreen(bloc: bloc);
       break;
     // BMI
     case 1:

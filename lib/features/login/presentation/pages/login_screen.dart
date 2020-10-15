@@ -27,7 +27,7 @@ class LogInScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: BlocListener(
-          bloc: bloc,
+          cubit: bloc,
           listener: (BuildContext context, state) {
             if (state is LoadingBeginHomeState) isLoading = true;
             if (state is LoadingEndHomeState) isLoading = false;
@@ -48,7 +48,7 @@ class LogInScreen extends StatelessWidget {
             }
           },
           child: BlocBuilder(
-            bloc: bloc,
+            cubit: bloc,
             builder: (context, state) => Container(
               height: height,
               decoration: boxDecoration(

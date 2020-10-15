@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  @override
-  HomeState get initialState => InitialHomeState();
-
   HomeUseCase homeUseCase;
 
-  HomeBloc({@required this.homeUseCase});
+  HomeBloc({@required this.homeUseCase}) : super(InitialHomeState());
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {

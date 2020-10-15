@@ -3,9 +3,6 @@ import 'package:fittrack/features/signup/presentation/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  @override
-  SignUpState get initialState => InitialSignUpState();
-
   SignUpUseCase signUpUseCase;
   SignUpEmailUseCase signUpEmailUseCase;
   SignUpPasswordUseCase signUpPasswordUseCase;
@@ -17,7 +14,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     this.signUpButtonStatusUseCase,
     this.signUpPasswordUseCase,
     this.signUpUseCase,
-  });
+  }) : super(InitialSignUpState());
 
   @override
   Stream<SignUpState> mapEventToState(SignUpEvent event) async* {

@@ -5,10 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FoodInstructionBloc extends Bloc<FoodInstructionEvent, FoodInstructionState> {
   FoodInstructionUseCase foodInstructionUseCase;
 
-  FoodInstructionBloc({this.foodInstructionUseCase});
-
-  @override
-  FoodInstructionState get initialState => InitialFoodInstructionState();
+  FoodInstructionBloc({this.foodInstructionUseCase}) : super(InitialFoodInstructionState());
 
   @override
   Stream<FoodInstructionState> mapEventToState(FoodInstructionEvent event) async* {

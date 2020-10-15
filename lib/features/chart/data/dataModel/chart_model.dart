@@ -46,7 +46,7 @@ class Datum {
     this.weight,
   });
 
-  int month;
+  dynamic month;
   String weight;
 
   factory Datum.fromMap(Map<String, dynamic> json) => Datum(

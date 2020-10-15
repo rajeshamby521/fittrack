@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RichFoodDetailScreen extends StatefulWidget {
-  String foodId;
-  Bloc bloc;
-  String img;
-  String name;
-  int n;
+  final String foodId;
+  final Bloc bloc;
+  final String img;
+  final String name;
+  final int n;
 
   RichFoodDetailScreen({this.bloc, this.foodId, this.img, this.name, this.n});
 
@@ -36,7 +36,7 @@ class _RichFoodDetailScreenState extends State<RichFoodDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: widget.bloc,
+      cubit: widget.bloc,
       listener: (BuildContext context, state) {
         if (state is LoadingBeginRichFoodDetailState) isLoading = true;
         if (state is LoadingEndRichFoodDetailState) isLoading = false;
@@ -61,7 +61,7 @@ class _RichFoodDetailScreenState extends State<RichFoodDetailScreen> {
         }
       },
       child: BlocBuilder(
-        bloc: widget.bloc,
+        cubit: widget.bloc,
         builder: (BuildContext context, state) {
           return widget.n == 0 ? newPage() : bottomSheet();
         },

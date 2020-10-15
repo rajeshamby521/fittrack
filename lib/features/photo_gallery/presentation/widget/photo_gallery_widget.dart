@@ -67,7 +67,7 @@ class AddPhotoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is GetPhotoGalleryWeightState) weight = state.weight;
         if (state is GetPhotoGalleryDateState) dateTime = state.dateTime;
@@ -75,7 +75,7 @@ class AddPhotoData extends StatelessWidget {
         img = image == null ? false : true;
       },
       child: BlocBuilder(
-        bloc: bloc,
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,

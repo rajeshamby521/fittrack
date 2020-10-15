@@ -3,13 +3,10 @@ import 'package:fittrack/features/food_directory/presentation/pages/rich_food_di
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RichFoodBloc extends Bloc<RichFoodEvent, RichFoodState> {
-  @override
-  RichFoodState get initialState => InitialRichFoodState();
-
   RichFoodUseCase richFoodUseCase;
   RichFoodDetailUseCase richFoodDetailUseCase;
 
-  RichFoodBloc({this.richFoodUseCase, this.richFoodDetailUseCase});
+  RichFoodBloc({this.richFoodUseCase, this.richFoodDetailUseCase}) : super(InitialRichFoodState());
 
   @override
   Stream<RichFoodState> mapEventToState(RichFoodEvent event) async* {

@@ -20,4 +20,7 @@ class DashboardAnimateParams extends Equatable {
   final bool animate;
 
   DashboardAnimateParams({this.animate});
+
+  @override
+  List<Object> get props => [animate];
 }

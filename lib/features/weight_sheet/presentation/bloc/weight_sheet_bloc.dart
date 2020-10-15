@@ -1,19 +1,16 @@
 import 'package:fittrack/features/weight_sheet/domain/usecase/weight_sheet_usecase.dart';
 import 'package:fittrack/features/weight_sheet/presentation/bloc/bloc.dart';
-import 'package:fittrack/ui_helper/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeightSheetBloc extends Bloc<WeightSheetEvent, WeightSheetState> {
-  @override
-  WeightSheetState get initialState => InitialWeightSheetState();
-
   WeightSheetUseCase weightSheetUseCase;
   SetWeightSheetUseCase setWeightSheetUseCase;
   WeightUseCase weightUseCase;
   DateUseCase dateUseCase;
 
   WeightSheetBloc(
-      {this.weightSheetUseCase, this.weightUseCase, this.dateUseCase, this.setWeightSheetUseCase});
+      {this.weightSheetUseCase, this.weightUseCase, this.dateUseCase, this.setWeightSheetUseCase})
+      : super(InitialWeightSheetState());
 
   @override
   Stream<WeightSheetState> mapEventToState(WeightSheetEvent event) async* {

@@ -1,7 +1,10 @@
-import 'package:fittrack/common/appbar_widget.dart';
+import 'package:fittrack/common/general/appbar_widget.dart';
+import 'package:fittrack/common/general/circular_progress_indicator.dart';
+import 'package:fittrack/common/general_widget.dart';
 import 'package:fittrack/di/dependency_injection.dart';
 import 'package:fittrack/features/chart/data/dataModel/chart_model.dart';
 import 'package:fittrack/features/chart/presentation/bloc/bloc.dart';
+import 'package:fittrack/features/chart/presentation/widget/chart_widget.dart';
 import 'package:fittrack/ui_helper/strings.dart';
 import 'package:fittrack/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +22,7 @@ class ChartScreen extends StatefulWidget {
 class _ChartScreenState extends State<ChartScreen> {
   final bloc = getIt<ChartBloc>();
   ChartModel chartData;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -28,24 +32,48 @@ class _ChartScreenState extends State<ChartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener(
-      bloc: bloc,
-      listener: (BuildContext context, state) {
-        if (state is GetChartDataState) chartData = state.data;
-      },
-      child: BlocBuilder(
-        bloc: bloc,
-        builder: (BuildContext context, state) {
-          return Scaffold(
-            appBar: appbar(bloc: widget.bloc, context: context, title: chart),
-            body: SafeArea(
-              child: Container(
-                height: height * 0.5,
-                child: null,
-              ),
-            ),
-          );
+    return Expanded(
+      child: BlocListener(
+        cubit: bloc,
+        listener: (BuildContext context, state) {
+          if (state is LoadingBeginChartState) isLoading = true;
+          if (state is LoadingEndChartState) isLoading = false;
+          if (state is GetChartDataState) {
+            chartData = state.data;
+            print(chartData.toMap().toString());
+          }
         },
+        child: BlocBuilder(
+          cubit: bloc,
+          builder: (BuildContext context, state) {
+            return Scaffold(
+              appBar: appbar(bloc: widget.bloc, context: context, title: chart),
+              body: SafeArea(
+                child: Container(
+                  height: height,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      verticalSpace(height * 0.02),
+                      Selection(bloc: bloc),
+                      Expanded(
+                        child: isLoading
+                            ? circularProgressIndicator
+                            : weightChart(
+                                data: chartData.data,
+                                monthly: chartData.monthName != null ? true : false,
+                                bloc: bloc,
+                              ),
+                      ),
+                    ],
+                  ),
+                ),
+                // child: sample1(context),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

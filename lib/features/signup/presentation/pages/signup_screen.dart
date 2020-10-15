@@ -23,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: BlocListener(
-          bloc: bloc,
+          cubit: bloc,
           listener: (BuildContext context, state) {
             if (state is GetSignUpEmailState) emailValidationMsg = state.msg;
             if (state is GetSignUpPasswordState) passwordValidationMsg = state.msg;
@@ -31,7 +31,7 @@ class SignUpScreen extends StatelessWidget {
             if (state is GetSignUpGenderState) gender = state.gender;
           },
           child: BlocBuilder(
-            bloc: bloc,
+            cubit: bloc,
             builder: (context, state) => Container(
               height: height,
               decoration: boxDecoration(

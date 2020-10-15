@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  Bloc bloc;
+  final Bloc bloc;
 
   HomePage({this.bloc});
 
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener(
-      bloc: bloc,
+      cubit: bloc,
       listener: (BuildContext context, state) {
         if (state is FetchHomeDataState) {
           homeDataList = state.modelData;
@@ -45,12 +45,8 @@ class _HomePageState extends State<HomePage> {
           isLoading = false;
         }
       },
-      child: BlocBuilder<HomeBloc, HomeState>(
-        bloc: bloc,
-        condition: (currState, oldState) {
-          if (currState is FetchHomeDataState) return false;
-          return true;
-        },
+      child: BlocBuilder(
+        cubit: bloc,
         builder: (BuildContext context, state) {
           return Container(
             alignment: Alignment.centerLeft,

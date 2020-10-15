@@ -51,26 +51,38 @@ class DateUseCase extends UseCase<DateTime, DateParams> {
 }
 
 class WeightSheetParams extends Equatable {
-  int offSet;
+  final int offSet;
 
-  WeightSheetParams({this.offSet}) : super([offSet]);
+  WeightSheetParams({this.offSet});
+
+  @override
+  List<Object> get props => [offSet];
 }
 
 class SetWeightSheetParams extends Equatable {
-  String date;
-  String weight;
+  final String date;
+  final String weight;
 
-  SetWeightSheetParams({this.date, this.weight}) : super([date, weight]);
+  SetWeightSheetParams({this.date, this.weight});
+
+  @override
+  List<Object> get props => [date, weight];
 }
 
 class WeightParams extends Equatable {
-  double weight;
+  final double weight;
 
-  WeightParams({this.weight}) : super([weight]);
+  WeightParams({this.weight});
+
+  @override
+  List<Object> get props => [weight];
 }
 
 class DateParams extends Equatable {
-  DateTime dateTime;
+  final DateTime dateTime;
 
-  DateParams({this.dateTime}) : super([dateTime]);
+  DateParams({this.dateTime});
+
+  @override
+  List<Object> get props => [dateTime];
 }

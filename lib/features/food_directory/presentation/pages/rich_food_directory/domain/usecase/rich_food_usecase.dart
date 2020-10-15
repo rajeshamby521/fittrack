@@ -21,10 +21,13 @@ class RichFoodUseCase extends UseCase<RichFoodDataModel, RichFoodParams> {
 }
 
 class RichFoodParams extends Equatable {
-  String categoryId;
-  String offSet;
+  final String categoryId;
+  final String offSet;
 
-  RichFoodParams({this.categoryId, this.offSet}) : super([categoryId, offSet]);
+  RichFoodParams({this.categoryId, this.offSet});
+
+  @override
+  List<Object> get props => [categoryId, offSet];
 }
 
 class RichFoodDetailUseCase extends UseCase<RichFoodDetailDataModel, RichFoodDetailParams> {
@@ -39,7 +42,10 @@ class RichFoodDetailUseCase extends UseCase<RichFoodDetailDataModel, RichFoodDet
 }
 
 class RichFoodDetailParams extends Equatable {
-  String foodId;
+  final String foodId;
 
-  RichFoodDetailParams({this.foodId}) : super([foodId]);
+  RichFoodDetailParams({this.foodId});
+
+  @override
+  List<Object> get props => [foodId];
 }

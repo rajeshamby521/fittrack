@@ -1,4 +1,4 @@
-import 'package:fittrack/common/appbar_widget.dart';
+import 'package:fittrack/common/general/appbar_widget.dart';
 import 'package:fittrack/common/general/circular_progress_indicator.dart';
 import 'package:fittrack/common/general_widget.dart';
 import 'package:fittrack/di/dependency_injection.dart';
@@ -37,14 +37,14 @@ class _FoodInstructionState extends State<FoodInstruction> {
     return Scaffold(
       appBar: appbar(bloc: widget.bloc, context: context, title: foodInstruction),
       body: BlocListener(
-        bloc: bloc,
+        cubit: bloc,
         listener: (BuildContext context, state) {
           if (state is LoadingBeginFoodInstructionState) isLoading = true;
           if (state is LoadingEndFoodInstructionState) isLoading = false;
           if (state is GetFoodInstructionDataState) dataModel = state.data;
         },
         child: BlocBuilder(
-          bloc: bloc,
+          cubit: bloc,
           builder: (BuildContext context, state) {
             return isLoading
                 ? circularProgressIndicator

@@ -2,6 +2,7 @@ import 'package:fittrack/features/chart/presentation/pages/chart_screen.dart';
 import 'package:fittrack/features/compare/presentation/pages/compare_screen.dart';
 import 'package:fittrack/features/current_bmi/presentation/pages/current_bmi_screen.dart';
 import 'package:fittrack/features/current_bmr/presentation/pages/current_bmr_screen.dart';
+import 'package:fittrack/features/feedback/presentation/pages/feedback_screen.dart';
 import 'package:fittrack/features/food_directory/presentation/pages/food_directory_home_screen.dart';
 import 'package:fittrack/features/food_instructions/presentation/pages/food_instruction.dart';
 import 'package:fittrack/features/home/presentation/pages/home_screen.dart';
@@ -14,7 +15,7 @@ Widget DashBoardPage({int pageNo, Bloc bloc}) {
   switch (pageNo) {
     // Home
     case 0:
-      return ChartScreen(bloc: bloc);
+      return FeedbackScreen(bloc: bloc);
       break;
     // BMI
     case 1:
@@ -58,7 +59,7 @@ Widget DashBoardPage({int pageNo, Bloc bloc}) {
       break;
     // FeedBack
     case 11:
-      return HomePage(bloc: bloc);
+      return FeedbackScreen(bloc: bloc);
       break;
     // Default
     default:

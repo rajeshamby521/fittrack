@@ -43,6 +43,7 @@ dependencies:
   share:
   fl_chart:
   bezier_chart:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

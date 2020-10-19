@@ -100,3 +100,7 @@ const String foodInstruction = "Food Instruction";
 const String toAvoid = "TO AVOID";
 const String toEat = "TO EAT";
 const String food = "FOOD";
+const String subject = "Subject";
+const String message = "Message";
+const String enter_subject = "Enter Subject";
+const String enter_message = "Enter Message";

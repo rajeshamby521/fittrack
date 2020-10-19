@@ -13,11 +13,7 @@ class LogInRepositoryImpl extends LogInRepository {
   Future<Either<Failure, ErrorStatusModel>> getLogInButtonStatusData(
       {bool emailValid, bool passwordValid, String emailMsg, String passMsg}) async {
     final result = await logInDataSource.getLogInButtonStatusData(
-      emailValid: emailValid,
-      passwordValid: passwordValid,
-      emailMsg: emailMsg,
-      passMsg: passMsg,
-    );
+        emailValid: emailValid, passwordValid: passwordValid, emailMsg: emailMsg, passMsg: passMsg);
     return Right(result);
   }
 

@@ -27,11 +27,11 @@ String email = "";
 String password = "";
 
 class LogInCard extends StatelessWidget {
-  String emailMsg;
-  String passMsg;
+  final String emailMsg;
+  final String passMsg;
 
-  Bloc bloc;
-  bool buttonStatus;
+  final Bloc bloc;
+  final bool buttonStatus;
 
   LogInCard(
     BuildContext context, {

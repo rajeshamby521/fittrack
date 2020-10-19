@@ -44,6 +44,10 @@ Future<void> main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       title: fitTrack,
+      theme: ThemeData(
+        cursorColor: theme,
+         primaryColor: theme
+      ),
       home: LogInScreen(),
     ),
   );

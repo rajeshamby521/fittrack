@@ -17,13 +17,13 @@ class ErrorState extends LogInState {
 }
 
 class GetLogInButtonStatusState extends LogInState {
-  ErrorStatusModel errorStatusModel;
+  final ErrorStatusModel errorStatusModel;
 
   GetLogInButtonStatusState({this.errorStatusModel});
 }
 
 class GetLogInState extends LogInState {
-  LogInModel logInModel;
+  final LogInModel logInModel;
 
   GetLogInState({this.logInModel});
 }

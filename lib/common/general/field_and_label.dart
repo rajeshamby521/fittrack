@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:fittrack/common/general_widget.dart';
 import 'package:fittrack/ui_helper/colors.dart';
 import 'package:fittrack/ui_helper/text_style.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +20,7 @@ class FieldAndLabel extends StatefulWidget {
   final Function onChanged;
   final TextInputType inputType;
   final String validationMessage;
+  final TextEditingController controller;
 
   FieldAndLabel({
     this.labelBackgroundColor,
@@ -42,6 +40,7 @@ class FieldAndLabel extends StatefulWidget {
     this.hint,
     this.rightIcon,
     this.validationMessage,
+    this.controller,
   });
 
   @override
@@ -50,7 +49,6 @@ class FieldAndLabel extends StatefulWidget {
 
 class _FieldAndLabelState extends State<FieldAndLabel> {
   var currentFieldValue;
-  TextEditingController _textEditController;
 
   @override
   Widget build(BuildContext context) {
@@ -61,24 +59,6 @@ class _FieldAndLabelState extends State<FieldAndLabel> {
         buildValidationMessage(context),
       ],
     );
-  }
-
-  onSubmitted(value) {
-    if (widget.onSubmitted != null) {
-      widget.onSubmitted(value, this);
-    }
-  }
-
-  onEditingComplete() {
-    if (widget.onEditingComplete != null) {
-      widget.onEditingComplete(this.currentFieldValue, this);
-    }
-  }
-
-  onTapInternal() {
-    if (widget.onTap != null) {
-      widget.onTap(this._textEditController);
-    }
   }
 
   Widget buildLabel(BuildContext context) {
@@ -106,14 +86,13 @@ class _FieldAndLabelState extends State<FieldAndLabel> {
         focusNode: widget.focusNode,
         autofocus: widget.autoFocus,
         enabled: widget.enabled ?? true,
-        controller: _textEditController,
+        controller: widget.controller,
         onChanged: widget.onChanged,
         onSubmitted: (val) {
           FocusScope.of(context).requestFocus(new FocusNode());
           // onSubmitted(val);
         },
         maxLines: 1,
-        onTap: () => onTapInternal(),
         decoration: InputDecoration(
           prefixIcon: widget.icon,
           suffixIcon: passVisibilityIcon(),

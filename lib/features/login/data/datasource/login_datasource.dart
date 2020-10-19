@@ -8,8 +8,5 @@ abstract class LogInDataSource {
     String passMsg,
   });
 
-  Future<LogInModel> getLogInData({
-    String email,
-    String password,
-  });
+  Future<LogInModel> getLogInData({String email, String password});
 }

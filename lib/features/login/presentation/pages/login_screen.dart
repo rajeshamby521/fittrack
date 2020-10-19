@@ -16,10 +16,9 @@ class LogInScreen extends StatelessWidget {
   Bloc bloc = getIt<LogInBloc>();
 
   bool buttonStatus = false;
-  String emailMsg;
-  String passMsg;
+  String emailMsg = "Please Enter your Email";
+  String passMsg = "Please Enter your Password";
   bool isLoading = false;
-
 
   @override
   Widget build(BuildContext context) {

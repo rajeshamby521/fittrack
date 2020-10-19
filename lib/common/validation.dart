@@ -23,6 +23,15 @@ String passwordValidationMsg({String password}) {
     return passwordLength6;
 }
 
+String feedbackValidationMsg({String value}) {
+  if (value.isEmpty)
+    return requiredField;
+  else
+    return valid;
+}
+
 bool isEmailValid({String email}) => email == valid ? true : false;
 
 bool isPasswordValid({String password}) => password == valid ? true : false;
+
+bool isFeedbackValid({String value}) => value == valid ? true : false;

@@ -29,3 +29,5 @@ const String getComparePhotoListURL = "photo/user_compare_photo_list/";
 const String SetComparePhotoDataURL = "photo/save_compare_photo/";
 
 const String ChartDataURL = "chart/user_weight_chart/";
+
+const String GiveFeedBackURL = "user/save_feedback/";

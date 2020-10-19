@@ -22,5 +22,6 @@ Color red200 = Colors.red[200];
 Color orangeAccent = Colors.deepOrange;
 Color yellow700 = Colors.yellow[700];
 Color white24 = Colors.white24;
+Color white54 = Colors.white54;
 Color white = Colors.white;
 Color transparent = Colors.transparent;

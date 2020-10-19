@@ -22,3 +22,5 @@ const String after_weight = "after_weight";
 const String food_avoid_id = "food_avoid_id";
 const String date_type = "date_type";
 const String param_month = "month";
+const String name = "name";
+const String message = "message";

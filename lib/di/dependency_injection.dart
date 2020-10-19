@@ -28,6 +28,12 @@ import 'package:fittrack/features/drawer/data/repository/drawer_repository_impl.
 import 'package:fittrack/features/drawer/domain/repository/drawer_repository.dart';
 import 'package:fittrack/features/drawer/domain/usecases/drawer_usecase.dart';
 import 'package:fittrack/features/drawer/presentation/bloc/bloc.dart';
+import 'package:fittrack/features/feedback/data/dataSource/feedback_datasource.dart';
+import 'package:fittrack/features/feedback/data/dataSource/feedback_datasource_impl.dart';
+import 'package:fittrack/features/feedback/data/repository/feedback_repository_impl.dart';
+import 'package:fittrack/features/feedback/domain/repository/feedback_repository.dart';
+import 'package:fittrack/features/feedback/domain/usecase/feedback_usecase.dart';
+import 'package:fittrack/features/feedback/presentation/bloc/bloc.dart';
 import 'package:fittrack/features/food_directory/data/dataSource/food_directory_datasource.dart';
 import 'package:fittrack/features/food_directory/data/dataSource/food_directory_datasource_impl.dart';
 import 'package:fittrack/features/food_directory/data/repository/food_directory_repository_impl.dart';
@@ -270,4 +276,17 @@ Future<void> initGetServiceLocator() async {
   getIt.registerLazySingleton<ChartDataSource>(() => ChartDataSourceImpl());
   //Repository
   getIt.registerLazySingleton<ChartRepository>(() => ChartRepositoryImpl(chartDataSource: getIt()));
+
+  ///FEEDBACK PAGE
+  //Bloc
+  getIt.registerFactory(
+      () => FeedbackBloc(feedbackDataUseCase: getIt(), feedbackButtonStatusUseCase: getIt()));
+  //Use Case
+  getIt.registerFactory(() => FeedbackDataUseCase(feedbackRepository: getIt()));
+  getIt.registerFactory(() => FeedbackButtonStatusUseCase(feedbackRepository: getIt()));
+  //DataSource
+  getIt.registerLazySingleton<FeedbackDataSource>(() => FeedbackDataSourceImpl());
+  //Repository
+  getIt.registerLazySingleton<FeedbackRepository>(
+      () => FeedbackRepositoryImpl(feedbackDataSource: getIt()));
 }

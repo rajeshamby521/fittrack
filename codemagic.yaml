@@ -29,7 +29,7 @@ workflows:
       - cd . && flutter build apk --debug
       - find . -name "Podfile" -execdir pod install \;
       - cd . && - xcode-project use-profiles
-                - xcode-project build-ipa --workspace ios/Runner.xcworkspace --scheme Runner
+      - xcode-project build-ipa --workspace ios/Runner.xcworkspace --scheme Runner
     artifacts:
       - build/**/outputs/**/*.apk
       - build/**/outputs/**/*.aab
